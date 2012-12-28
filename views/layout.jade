@@ -1,0 +1,16 @@
+!!! 5
+html
+  head
+    title= title
+  body
+    header
+      h1: a(href="/") Substance <span>Hub</span>
+      menu
+        if user
+          strong= user.email
+          a(href="/logout") Log out
+        else
+          a(href="/login") Log in
+          a(href="/signup") Sign up
+    #content
+      block content

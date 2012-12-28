@@ -1,0 +1,27 @@
+{
+  "name": "substance-hub",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+    "bcrypt": "0.7.x",
+    "connect-assets": "2.3.3",
+    "express": "3.0.x",
+    "express-resource": "1.x",
+    "jade": "*",
+    "nib": "*",
+    "passport": "0.1.x",
+    "passport-local": "0.1.x",
+    "pg": "0.8.x",
+    "stylus": "*",
+    "supertest": "0.4.x",
+    "underscore": "1.4.x",
+    "when": "1.x"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}

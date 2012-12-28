@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Login
+  if !user
+    form(action="/login",method="post")
+      label: input(name="username",placeholder="Email or username")
+      label: input(name="password",type="password",placeholder="Password")
+      button(type="submit") Go!
+  else
+    p You are authenticated.
+
