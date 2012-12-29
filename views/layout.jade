@@ -2,14 +2,14 @@
 html
   head
     != css('style')
-    title= title
+    title Substance Hub
   body
     header
       h1: a(href="/") Substance <span>Hub</span>
       menu
         if user
-          img.avatar(src=gravatar,width=40,height=40)
           strong.info= user.email
+          img.avatar(src=gravatar,width=40,height=40,alt="")
           a(href="/logout") Log out
         else
           a(href="/login") Log in
