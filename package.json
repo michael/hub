@@ -15,7 +15,6 @@
     "passport": "0.1.x",
     "passport-local": "0.1.x",
     "pg": "0.8.x",
-    "stylus": "*",
     "supertest": "0.4.x",
     "underscore": "1.4.x",
     "when": "1.x"

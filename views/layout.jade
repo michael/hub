@@ -1,13 +1,15 @@
 !!! 5
 html
   head
+    != css('style')
     title= title
   body
     header
       h1: a(href="/") Substance <span>Hub</span>
       menu
         if user
-          strong= user.email
+          img.avatar(src=gravatar,width=40,height=40)
+          strong.info= user.email
           a(href="/logout") Log out
         else
           a(href="/login") Log in

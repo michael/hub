@@ -2,6 +2,7 @@
 var express = require('express'),
     resource = require('express-resource'),
     assets = require('connect-assets'),
+    crypto = require('crypto'),
     path = require('path'),
     passport = require('passport');
 
@@ -30,6 +31,7 @@ module.exports = function create () {
     app.use(passport.session());
 
     app.use(routes.commonHelper);
+    app.use(gravatars);
     app.use(app.router);
 
     app.use(assets());
@@ -55,3 +57,17 @@ module.exports = function create () {
 
   return app;
 };
+
+function md5(str) {
+  var hasher = crypto.createHash('md5');
+  hasher.update(str);
+  return hasher.digest('hex');
+}
+
+function gravatars(req, res, next) {
+  var gravatarUrl = 'http://www.gravatar.com/avatar/';
+  if (req.user) {
+    res.locals.gravatar = gravatarUrl + md5(req.user.email) + '?s=80';
+  }
+  next();
+}
