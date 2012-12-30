@@ -39,7 +39,7 @@ header menu {
   padding: 0;
   margin: 10px 1em;
   float: right;
-  height: 40px;
+  /*height: 40px;*/
 }
 
 header menu .info {
@@ -51,27 +51,51 @@ header menu .info {
 header .avatar {
   vertical-align: middle;
   border-radius: 4px;
+  position: relative;
+  top: -1px;
 }
 
-header menu a {
-  background: rgba(0, 0, 0, 0.2);
-  color: white;
+header menu .block {
   padding: 10px 20px;
   margin: 0 0 0 10px;
   display: inline-block;
-  min-height: 20px;
-  line-height: 20px;
   font-size: 18px;
-  border-radius: 4px;
   text-decoration: none;
+  line-height: 20px;
+  min-height: 20px;
+}
+
+header menu .action {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  border-radius: 4px;
   font-weight: bold;
 }
 
-header menu a:hover,
-header menu a:focus {
+header menu .action:hover,
+header menu .action:focus {
   background: rgba(0, 0, 0, 0.5);
 }
 
 #content {
   padding: 2em;
+}
+
+#settings-sidebar {
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+}
+
+#settings-sidebar a {
+  display: inline-block;
+  padding: 1em;
+  margin-bottom: -1px;
+  border-bottom: 1px solid #BBB;
+  text-decoration: none;
+  color: #888;
+}
+
+#settings-sidebar a.current {
+  border-bottom-color: #222;
+  color: #222;
 }

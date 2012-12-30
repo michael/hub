@@ -3,16 +3,21 @@ html
   head
     != css('style')
     title Substance Hub
-  body
+  body(class="section-#{section}")
     header
       h1: a(href="/") Substance <span>Hub</span>
       menu
         if user
-          strong.info= user.email
-          img.avatar(src=gravatar,width=40,height=40,alt="")
-          a(href="/logout") Log out
+          a(href="/settings").block.info
+            span= user.email
+          a(href="/settings/avatar")
+            img.avatar(src=gravatar,width=40,height=40,alt="")
+          a.action.block(href="/logout")
+            span Log out
         else
-          a(href="/login") Log in
-          a(href="/signup") Sign up
+          a.action.block(href="/login")
+            span Log in
+          a.action.block(href="/signup")
+            span Sign up
     #content
       block content

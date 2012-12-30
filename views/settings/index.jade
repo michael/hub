@@ -1,0 +1,15 @@
+extends ../layout
+
+mixin page(name)
+  - var classname = page === name ? 'current' : '';
+  a.settings-page(class=classname,href="/settings/#{name}")
+    span.name= name
+
+block content
+  #side
+    nav#settings-sidebar
+      mixin page('profile')
+      mixin page('avatar')
+      mixin page('networks')
+      mixin page('documents')
+    block settings-content
