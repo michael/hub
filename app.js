@@ -9,6 +9,8 @@ var express = require('express'),
 var setup = require('./lib/setup');
 var authentication = require('./lib/authentication');
 var users = require('./lib/users');
+var users = require('./lib/publications');
+
 var db = require('./lib/db');
 var routes = require('./lib/routes');
 
