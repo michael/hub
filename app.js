@@ -6,13 +6,15 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport');
 
+require('express-namespace');
+
 var setup = require('./lib/setup');
 var authentication = require('./lib/authentication');
 var users = require('./lib/users');
 var users = require('./lib/publications');
 
 var db = require('./lib/db');
-var routes = require('./lib/routes');
+var routes = require('./routes');
 
 module.exports = function create () {
 

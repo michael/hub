@@ -1,7 +1,7 @@
 var _ = require('underscore');
-var csrf = require('./csrf');
-var users = require('./users');
-var publications = require('./publications');
+var csrf = require('../lib/csrf');
+var users = require('../lib/users');
+var publications = require('../lib/publications');
 var passport = require('passport');
 var moment = require('moment');
 
@@ -75,16 +75,16 @@ DocumentRenderer.prototype.nodes = function() {
 
 DocumentRenderer.prototype.render = function() {
   var html = '<div class="title">'+this.content.properties.title+'</div>';
-  
+
   html += '<div class="author">Michael Aufreiter</div>';
   html += '<div class="date">Fri Apr 20 2012</div>';
   html += '<div class="abstract">'+this.content.properties.abstract+'</div>';
 
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
-      html += '<h2>'+node.content+'</h2>'
+      html += '<h2>'+node.content+'</h2>';
     } else {
-      html += '<p>'+node.content+'</p>'
+      html += '<p>'+node.content+'</p>';
     }
   });
   return html;
@@ -143,7 +143,7 @@ routes.configure = function (app) {
         util: util
       });
 
-      // res.send(html);  
+      // res.send(html);
     });
   });
 
@@ -182,49 +182,11 @@ routes.configure = function (app) {
   });
 
 
-  // API
-  // ===========
-
-  // Create Publication
-  // -----------
-
-  app.post('/publications', function(req, res) {
-    publications.create(req.body.document, req.body.data, function() {
-      console.log('CREATED PUblication');
-    });
-    res.json({"status": "ok"});
-  });
-
-
-  // Clear publications
-  // -----------
-
-  app.delete('/publications/:document', function(req, res) {
-    console.log('deleting...', req.params.document);
-    publications.clear(req.params.document, function(err) {
-      if (err) console.log('ERROR', err);
-      res.json({"status": "ok"});
-    });
-  });
-
-
-  // List all users
-  // -----------
-
-  app.get('/users', function(req, res) {
-    users.findAll(function (err, users) {
-      res.json(users);
-    });
-  });
-
-
   // Login Action
   // -----------
 
   app.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
-
-      console.log('')
 
       // TODO CSRF!!!!
       var redirect;
@@ -286,4 +248,15 @@ routes.configure = function (app) {
   setting('avatar');
   setting('networks');
   setting('documents');
+
+
+  // API v1
+  // ===========
+
+  app.namespace('/api/v1/', function () {
+
+    require('./api').configure(app);
+
+  });
+
 };
