@@ -3,10 +3,10 @@ extends layout
 block content
   h1 Documents
 
-  div(class="documents")
-    - documents.forEach(function(doc) {
-      a(class="document", href="/documents/"+doc.id)
-        div(class="title")= doc.title
-        div(class="author")= doc.creator
-        div(class="created-at")= util.timeago(doc.created_at)
-    - })
+  div.documents
+    if documents
+      for doc in documents
+        a.document(href="/documents/"+doc.id)
+          div.title= doc.title
+          div.author= doc.creator
+          div.created-at= util.timeago(doc.created_at)
