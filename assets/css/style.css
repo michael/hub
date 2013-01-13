@@ -12,19 +12,72 @@ body {
   color: #444;
   margin: 0;
   padding: 0;
-  font: normal 14px/20px 'Open Sans',Arial,sans-serif;
+  font-family: 'Palatino Linotype', 'Merriweather';
   font-weight: 400;
-  color: #444;
+  color: #222;
 }
 
-header {
-  background: #3D3D34;
-  color: #EEE;
-  padding: 0;
-  margin: 0;
-  /*height: 60px;*/
-  overflow: hidden;
+#header {
+  width: 800px;
+  margin: auto;
+  border-bottom: 1px solid rgba(0,0,0, 0.4);
 }
+
+#header .title {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px 0;
+
+}
+
+#header .title a {
+  text-decoration: none;
+  text-align: center;
+  color: #222;
+}
+
+#header .title a:hover {
+  color: #000;
+}
+
+#header .subtitle {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #888;
+}
+
+#footer {
+  margin: auto;
+  width: 800px;
+  overflow: auto;
+  margin-top: 50px;
+  font-size: 13px;
+  padding: 10px 0;
+  color: #666;
+  border-top: 1px solid rgba(0,0,0, 0.4);
+}
+
+#footer a {
+  color: #666;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: #222;
+}
+
+#footer .left {
+  float: left;
+}
+
+#footer .right {
+  float: right;
+}
+
+/* Legacy styles
+-------------------------------------------------------------------------------*/
+
 
 header h1,
 header h2 {
@@ -84,7 +137,8 @@ header menu .action:focus {
 }
 
 #content {
-  padding: 2em;
+  width: 800px;
+  margin: auto;
 }
 
 #settings-sidebar {
@@ -111,50 +165,48 @@ header menu .action:focus {
 -------------------------------------------------------------------------------*/
 
 .documents {
-  overflow: auto;
+
 }
 
 .documents a.document {
   text-decoration: none;
-  float: left;
   display: block;
-  width: 200px;
-  height: 280px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-
+  height: 80px;
+  
+  opacity: 0.8;
   color: #444;
-
-  float: left;
   position: relative;
-
-  background: #fff;
-  -webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
-  -moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0,0,0, 0.1);
 }
 
+.documents a.document:hover {
+  opacity: 1.0;
+}
 
 .documents .document .title {
-  padding: 10px;
+  line-height: 80px;
   font-family: 'Palatino Linotype', 'Merriweather';
-  font-size: 16px;
+  font-size: 30px;
+  color: #C55E3F;
 }
 
 .documents .document .author {
-  padding: 0 10px;
-  font-size: 14px;
+  text-align: right;
+  font-size: 20px;
+  position: absolute;
+  right: 0px;
+  top: 15px;
 }
 
-.documents .document .author a {
-  border: none;
-}
 
 .documents .document .created-at {
+  text-align: right;
   position: absolute;
-  left: 10px;
-  bottom: 10px;
-  font-size: 12px;
+  right: 0px;
+  top: 40px;
+
+  font-size: 15px;
+  font-style: italic;
   color: #777;
 }
 
@@ -164,40 +216,38 @@ header menu .action:focus {
 
 #document {
  margin: auto; 
- width: 700px;
- padding: 100px;
- background: white;
+ width: 800px;
  margin-top: 60px;
  font-family: 'Palatino Linotype', 'Merriweather';
-
-  background: #fff;
-  -webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
-  -moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.35), inset 0px 0px 1px rgba(255, 255, 255, 0.15);
+ font-size: 18px;
 }
 
 
 #document .title {
-  font-size: 40px;
+  color: #C55E3F;
+  font-size: 50px;
   text-align: center;
-  font-weight: bold;
 }
 
 #document .author {
   text-align: center;
   font-size: 25px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 #document .date {
   text-align: center;
-  font-size: 14px;
-  margin-top: 50px;
+  font-size: 16px;
+  color: rgba(0,0,0, 0.7);
+  margin-top: 30px;
 }
 
 #document .abstract {
   text-align: center;
-  font-size: 14px;
+  font-style: italic;
+  color: rgba(0,0,0, 0.5);
   margin-top: 50px;
   margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0,0,0, 0.4);
 }
