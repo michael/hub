@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var passport = require('passport');
 
 var dir = '../../lib/';
 
@@ -14,6 +15,16 @@ apis.configure = function (app) {
   app.get('/', function (req, res) {
     res.json({});
   });
+
+  app.post('/token',
+    passport.authenticate('oauth2-client-password', {
+      session: false
+    }),
+    app.oauth.token(),
+    app.oauth.errorHandler(),
+    function (req, res) {
+      res.json({ ok: '?' });
+    });
 
 
   // Create Publication

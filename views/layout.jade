@@ -5,15 +5,17 @@ html
     title Substance - Towards open digital publishing
   body(class="section-#{section}")
     #header
-      <div class="title"><a href="/">Substance</a></div>
-      <div class="subtitle">Towards open digital publishing</div>
-      <div class="separator"></div>
+      .title: a(href="/") Substance
+      .subtitle Towards open digital publishing
+      .separator
     #content
       block content
     #footer
       .left
         &copy; 2010 - 2013 Substance.io
       .right
-        <a href="http://interior.substance.io" target="_blank">About</a> &middot;
-        <a href="http://github.com/substance" target="_blank">Source Code</a> &middot;
-        <a href="http://twitter.com/_substance" target="_blank">Twitter</a>
+        a(href="http://interior.substance.io",target="_blank") About
+        span &nbsp;&middot;&nbsp;
+        a(href="http://github.com/substance",target="_blank") Source Code
+        span &nbsp;&middot;&nbsp;
+        a(href="http://twitter.com/_substance",target="_blank") Twitter
