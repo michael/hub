@@ -169,7 +169,7 @@ routes.configure = function (app) {
 
     res.render(view, {
       section: 'signup'
-    }, next);
+    });
   });
 
 
