@@ -13,7 +13,10 @@ var apis = module.exports = {};
 apis.configure = function (app) {
 
   app.get('/', function (req, res) {
-    res.json({});
+    res.json({
+      "name": "Substance API",
+      "version": "1.0-alpha"
+    });
   });
 
   app.post('/token',
@@ -25,7 +28,6 @@ apis.configure = function (app) {
     function (req, res) {
       res.json({ ok: '?' });
     });
-
 
   // Create Publication
   // -----------
