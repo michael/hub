@@ -29,6 +29,11 @@ apis.configure = function (app) {
       res.json({ ok: '?' });
     });
 
+
+  app.get('/john', function(req, res) {
+    res.json({"john": "doe"});
+  });
+
   // Create Publication
   // -----------
 
