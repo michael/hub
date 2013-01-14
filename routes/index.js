@@ -253,7 +253,7 @@ routes.configure = function (app) {
   // API v1
   // ===========
 
-  app.namespace('/api/v1/', function () {
+  app.namespace('/api/v1', function () {
 
     require('./api').configure(app);
 
