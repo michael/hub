@@ -5,6 +5,10 @@
   "scripts": {
     "start": "node index"
   },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
   "dependencies": {
     "bcrypt": "0.7.x",
     "connect-assets": "2.3.3",
