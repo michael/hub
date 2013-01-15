@@ -6,9 +6,8 @@ var dir = '../../lib/';
 var csrf = require(dir + 'csrf');
 var users = require(dir + 'users');
 var publications = require(dir + 'publications');
-
+var db = require(dir + 'db');
 var apis = module.exports = {};
-
 
 apis.configure = function (app) {
 
@@ -38,10 +37,14 @@ apis.configure = function (app) {
   // -----------
 
   app.post('/publications', function(req, res) {
+    var token = req.get('Authorization').split(' ')[1];
+
+    // TODO: Check if authorized, using token from the header
     publications.create(req.body.document, req.body.data, function() {
-      console.log('CREATED PUblication');
+      console.log('CREATED Publication');
+      res.json({"status": "ok"});
     });
-    res.json({"status": "ok"});
+    
   });
 
 
@@ -66,6 +69,18 @@ apis.configure = function (app) {
         return _.omit(user, 'hash');
       }));
     });
+  });
+
+
+  // Authenticate user
+  // -----------
+
+  app.post('/authenticate', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log('authorizing ... ', username);
+
+    res.json({"status": "ok", "token": db.uuid(), "username": username});
   });
 
 };
