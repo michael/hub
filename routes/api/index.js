@@ -28,20 +28,22 @@ apis.configure = function (app) {
       res.json({ ok: '?' });
     });
 
-
   app.get('/john', function(req, res) {
     res.json({"john": "doe"});
   });
+
 
   // Create Publication
   // -----------
 
   app.post('/publications', function(req, res) {
-    var token = req.get('Authorization').split(' ')[1];
+    var token    = req.get('Authorization').split(' ')[1];
+    var document = req.body.document;
+    var username = req.body.username;
+    var data     = req.body.data;
 
     // TODO: Check if authorized, using token from the header
-    publications.create(req.body.document, req.body.data, function() {
-      console.log('CREATED Publication');
+    publications.create(document, username, data, function() {
       res.json({"status": "ok"});
     });
     
@@ -82,5 +84,4 @@ apis.configure = function (app) {
 
     res.json({"status": "ok", "token": db.uuid(), "username": username});
   });
-
 };
