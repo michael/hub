@@ -56,7 +56,10 @@ apis.configure = function (app) {
   app.delete('/publications/:document', function(req, res) {
     console.log('deleting...', req.params.document);
     publications.clear(req.params.document, function(err) {
-      if (err) console.log('ERROR', err);
+      if (err) {
+        console.log('ERROR', err);
+        res.json({"status": "error", "error": err});
+      }
       res.json({"status": "ok"});
     });
   });
