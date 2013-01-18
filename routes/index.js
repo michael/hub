@@ -30,7 +30,6 @@ function logged () {
   };
 }
 
-
 routes.commonHelper = function (req, res, next) {
   var path = req.path;
 
@@ -48,21 +47,20 @@ routes.commonHelper = function (req, res, next) {
 };
 
 
-
 var DocumentRenderer = function(doc) {
-  this.content = doc;
+  this.doc = doc;
 };
 
 DocumentRenderer.prototype.nodes = function() {
   var result = [];
-  var doc = this.content;
+  var content = this.doc.content;
 
   function node(id) {
-    return doc.nodes[id];
+    return content.nodes[id];
   }
 
-  if (!doc.head) return;
-  var current = node(doc.head);
+  if (!content.head) return;
+  var current = node(content.head);
   var index = 0;
 
   result.push(current);
@@ -73,12 +71,16 @@ DocumentRenderer.prototype.nodes = function() {
   return result;
 };
 
-DocumentRenderer.prototype.render = function() {
-  var html = '<div class="title">'+this.content.properties.title+'</div>';
 
-  html += '<div class="author">Michael Aufreiter</div>';
-  html += '<div class="date">Fri Apr 20 2012</div>';
-  html += '<div class="abstract">'+this.content.properties.abstract+'</div>';
+DocumentRenderer.prototype.render = function() {
+  var content = this.doc.content;
+  var properties = content.properties;
+
+  var html = '<div class="title">'+properties.title+'</div>';
+
+  html += '<div class="author">'+this.doc.creator+'</div>';
+  html += '<div class="date">'+this.doc.created_at.toDateString()+'</div>';
+  html += '<div class="abstract">'+properties.abstract+'</div>';
 
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
@@ -132,9 +134,14 @@ routes.configure = function (app) {
 
   app.get('/documents/:document', function(req, res) {
     publications.findByDocument(req.params.document, function(err, publications) {
-      var renderer = new DocumentRenderer(JSON.parse(_.last(publications).data));
-      // var nodes = doc.nodes();
+      doc = _.last(publications);
+      var renderer = new DocumentRenderer({
+        content: JSON.parse(doc.data),
+        creator: doc.creator,
+        created_at: doc.created_at
+      });
 
+      // var nodes = doc.nodes();
       var html = renderer.render();
 
       res.render('document', {
@@ -146,7 +153,6 @@ routes.configure = function (app) {
       // res.send(html);
     });
   });
-
 
   // Login Form
   // -----------
