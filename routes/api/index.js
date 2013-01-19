@@ -91,7 +91,7 @@ apis.configure = function (app) {
 
     users.create(params.email, params.username, params.name, params.password, function (err, uuid) {
       if (err) return res.json({"status": "error"});
-      res.json({"status": "ok", "token": db.uuid(), "username": username});
+      res.json({"status": "ok", "token": db.uuid(), "username": params.username});
     });
   });
 };
