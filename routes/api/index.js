@@ -18,6 +18,7 @@ apis.configure = function (app) {
     });
   });
 
+
   app.post('/token',
     passport.authenticate('oauth2-client-password', {
       session: false
@@ -27,10 +28,6 @@ apis.configure = function (app) {
     function (req, res) {
       res.json({ ok: '?' });
     });
-
-  app.get('/john', function(req, res) {
-    res.json({"john": "doe"});
-  });
 
 
   // Create Publication
@@ -46,7 +43,6 @@ apis.configure = function (app) {
     publications.create(document, username, data, function() {
       res.json({"status": "ok"});
     });
-    
   });
 
 
@@ -83,8 +79,19 @@ apis.configure = function (app) {
   app.post('/authenticate', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log('authorizing ... ', username);
-
     res.json({"status": "ok", "token": db.uuid(), "username": username});
+  });
+
+
+  // Register user
+  // -----------
+
+  app.post('/register', function(req, res, next) {
+    var params = req.body;
+
+    users.create(params.email, params.username, params.name, params.password, function (err, uuid) {
+      if (err) return res.json({"status": "error"});
+      res.json({"status": "ok", "token": db.uuid(), "username": username});
+    });
   });
 };
