@@ -1,13 +1,23 @@
 var _ = require('underscore');
 var passport = require('passport');
-
 var dir = '../../lib/';
+var Store = require('../../store/src/store');
+
+// Redis DocStore instance
+// var store = new Store.RedisStore();
+
+function getStore(username) {
+  console.log('getting store for', username);
+  return new Store.RedisStore({scope: username});
+}
 
 var csrf = require(dir + 'csrf');
 var users = require(dir + 'users');
 var publications = require(dir + 'publications');
 var db = require(dir + 'db');
+
 var apis = module.exports = {};
+
 
 apis.configure = function (app) {
 
@@ -50,10 +60,8 @@ apis.configure = function (app) {
   // -----------
 
   app.delete('/publications/:document', function(req, res) {
-    console.log('deleting...', req.params.document);
     publications.clear(req.params.document, function(err) {
       if (err) {
-        console.log('ERROR', err);
         res.json({"status": "error", "error": err});
       }
       res.json({"status": "ok"});
@@ -100,13 +108,74 @@ apis.configure = function (app) {
   // ===================
   // 
   // TODO: Move to separate file
+  // 
+  // Testing the API
+  // Use CURL:
+  // curl -v -X POST -H "Content-Type: application/json" -d '{"username": "michael"}' curl -X POST http://duese.quasipartikel.at:3000/api/v1/documents/create
 
+
+  // Get document by user and id
+  // -----------
+
+  app.get('/documents/get/:username/:document', function(req, res, next) {
+    var username = req.params.username;
+    var id = req.params.document;
+
+    getStore(username).get(id, function(err, doc) {
+      if (err) return res.json({"status": "error"});
+      res.json(doc);
+    });
+  });
+
+
+  // List documents for a particular user
+  // -----------
+
+  app.get('/documents/list/:username', function(req, res, next) {
+    var username = req.params.username;
+
+    getStore(username).list(function(err, docs) {
+      if (err) return res.json({"status": "error"});
+      res.json(docs);
+    });
+  });
+
+  // Create a fresh new document
+  // -----------
+
+  app.post('/documents/create', function(req, res, next) {
+    var username = req.body.username;
+
+    getStore(username).create(db.uuid(), function(err, doc) {
+      if (err) return res.json({"status": "error"});
+      res.json(doc);
+    });
+  });  
+
+  // Update an existing document
+  // -----------
+  // 
+  // Test Example
+  // curl -X POST -H "Content-Type: application/json" -d '{"username": "michael", "id": "dd9e821d5e01300cf06a4c61477d18a9", "commits": [{"op": ["insert", {"id": "heading:42c72d87e40f529dba27a9970c0a6ef3","type": "heading","data": { "content": "Hello World" }}], "sha": "b0a4df43adba704eaef6809ada25bc4a"}]}' curl -X POST http://duese.quasipartikel.at:3000/api/v1/documents/update
+
+  app.post('/documents/update', function(req, res, next) {
+    var username = req.body.username;
+    var id = req.body.id;
+    var commits = req.body.commits;
+
+    getStore(username).update(id, commits, function(err) {
+      if (err) return res.json({"status": "error", "error": err});
+      res.json({"status": "ok"});
+    });
+  });
+
+    
 
   // Query document states by username
   // -----------
 
   app.post('/document_states/:user', function(req, res, next) {
-    var user = req.params.user;
+    var username = req.params.user;
     store.getDocStates(function(err, documents) {
       res.json(documents);
     });
@@ -123,7 +192,6 @@ apis.configure = function (app) {
     store.getCommits(synced_commit, function(err, commits) {
       res.json(commits);
     });
-
   });
 
   // Push Commits
