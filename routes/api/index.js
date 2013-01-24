@@ -140,6 +140,7 @@ apis.configure = function (app) {
     });
   });
 
+
   // Create a fresh new document
   // -----------
 
@@ -151,6 +152,7 @@ apis.configure = function (app) {
       res.json(doc);
     });
   });  
+
 
   // Update an existing document
   // -----------
@@ -169,23 +171,37 @@ apis.configure = function (app) {
     });
   });
 
-    
 
-  // Query document states by username
+  // Query documents status
   // -----------
+  // Example
+  // curl http://duese.quasipartikel.at:3000/api/v1/documents/status/username
 
-  app.post('/document_states/:user', function(req, res, next) {
-    var username = req.params.user;
-    store.getDocStates(function(err, documents) {
-      res.json(documents);
+  app.get('/documents/status/:username', function(req, res, next) {
+    var username = req.params.username;
+
+    getStore(username).list(function(err, docs) {
+      if (err) return res.json({"status": "error"});
+      var result = {};
+      _.each(docs, function(doc) {
+        result[doc.id] = doc;
+        delete result[doc.id].id;
+      });
+      res.json(result);
     });
-  });
+  });  
 
 
   // Pull Commits
   // -----------
+  // 
+  // Returns all commits that happed after :synced_commit
+  // 
+  // Example
+  // curl http://duese.quasipartikel.at:3000/api/v1/documents/pull_commits/michael/doc-1-/commit-15
 
-  app.post('/pull_commits/:document/:synced_commit', function(req, res, next) {
+  app.get('documents/commits/:username/:document/:start_commit', function(req, res, next) {
+    var document = req.params.document;
     var synced_commit = req.params.synced_commit;
 
     // Returns all commits after synced_commit
@@ -194,16 +210,17 @@ apis.configure = function (app) {
     });
   });
 
+
   // Push Commits
   // -----------
+  // Redundant (update does it already)
 
-  app.post('/push_commits', function(req, res, next) {
-    var commits = JSON.parse(req.body.data);
-    var document = req.body.document;
-    var synced_commit = req.body.synced_commit;
-    store.update(document, commits, function(err) {
-      res.json({"status": "ok"});
-    });
-  });
-
+  // app.post('/write_commits', function(req, res, next) {
+  //   var commits = JSON.parse(req.body.data);
+  //   var document = req.body.document;
+  //   var synced_commit = req.body.synced_commit;
+  //   store.update(document, commits, function(err) {
+  //     res.json({"status": "ok"});
+  //   });
+  // });
 };
