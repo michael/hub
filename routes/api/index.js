@@ -122,7 +122,7 @@ apis.configure = function (app) {
     var id = req.params.document;
 
     getStore(username).get(id, function(err, doc) {
-      if (err) return res.json({"status": "error"});
+      if (err) return res.json(500, { error: err });
       res.json(doc);
     });
   });
@@ -135,7 +135,7 @@ apis.configure = function (app) {
     var username = req.params.username;
 
     getStore(username).list(function(err, docs) {
-      if (err) return res.json({"status": "error"});
+      if (err) return res.json(500, { error: err });
       res.json(docs);
     });
   });
@@ -146,9 +146,10 @@ apis.configure = function (app) {
 
   app.post('/documents/create', function(req, res, next) {
     var username = req.body.username;
+    var id = req.body.id || db.uuid();
 
-    getStore(username).create(db.uuid(), function(err, doc) {
-      if (err) return res.json({"status": "error"});
+    getStore(username).create(id, function(err, doc) {
+      if (err) return res.json(500, { error: err });
       res.json(doc);
     });
   });  
@@ -166,7 +167,7 @@ apis.configure = function (app) {
     var commits = req.body.commits;
 
     getStore(username).update(id, commits, function(err) {
-      if (err) return res.json({"status": "error", "error": err});
+      if (err) return res.json(500, { error: err });
       res.json({"status": "ok"});
     });
   });
@@ -181,7 +182,7 @@ apis.configure = function (app) {
     var username = req.params.username;
 
     getStore(username).list(function(err, docs) {
-      if (err) return res.json({"status": "error"});
+      if (err) return res.json(500, { error: err });
       var result = {};
       _.each(docs, function(doc) {
         result[doc.id] = doc;
