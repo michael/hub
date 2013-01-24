@@ -39,7 +39,6 @@ apis.configure = function (app) {
       res.json({ ok: '?' });
     });
 
-
   // Create Publication
   // -----------
 
@@ -113,6 +112,32 @@ apis.configure = function (app) {
   // Use CURL:
   // curl -v -X POST -H "Content-Type: application/json" -d '{"username": "michael"}' curl -X POST http://duese.quasipartikel.at:3000/api/v1/documents/create
 
+  // Helper to access commit ranges
+  function extractCommits(doc, start, end) {
+    var skip = false;
+    
+    if (start === end) return [];
+    var commit = doc.commits[start];
+
+    if (!commit) return [];
+    commit.sha = start;
+
+    var commits = [commit];
+    var prev = commit;
+
+    while (!skip && (commit = doc.commits[commit.parent])) {
+      if (end && commit.sha === end) {
+        skip = true;
+      } else {
+        commit.sha = prev.parent;
+        commits.push(commit);
+        prev = commit;
+      }
+    }
+
+    return commits.reverse();
+  }
+
 
   // Get document by user and id
   // -----------
@@ -147,10 +172,22 @@ apis.configure = function (app) {
   app.post('/documents/create', function(req, res, next) {
     var username = req.body.username;
     var id = req.body.id || db.uuid();
+    var meta = req.body.meta;
 
-    getStore(username).create(id, function(err, doc) {
+    var store = getStore(username);
+    store.create(id, function(err, doc) {
       if (err) return res.json(500, { error: err });
-      res.json(doc);
+
+      console.log('CREAATED DOC ', id, ' on server');
+      if (meta) {
+        console.log('with metainfo');
+        store.updateMeta(id, meta, function(err) {
+          res.json(doc);
+        });
+      } else {
+        console.log('without metainfo');
+        res.json(doc);
+      }
     });
   });  
 
@@ -165,10 +202,15 @@ apis.configure = function (app) {
     var username = req.body.username;
     var id = req.body.id;
     var commits = req.body.commits;
+    var meta = req.body.meta;
 
-    getStore(username).update(id, commits, function(err) {
+    var store = getStore(username);
+    store.update(id, commits, function(err) {
       if (err) return res.json(500, { error: err });
-      res.json({"status": "ok"});
+
+      store.updateMeta(id, meta, function(err) {
+        res.json({"status": "ok"});
+      });
     });
   });
 
@@ -202,11 +244,17 @@ apis.configure = function (app) {
   // curl http://duese.quasipartikel.at:3000/api/v1/documents/pull_commits/michael/doc-1-/commit-15
 
   app.get('documents/commits/:username/:document/:start_commit', function(req, res, next) {
+    var username = req.params.username;
     var document = req.params.document;
-    var synced_commit = req.params.synced_commit;
+    var startCommit = req.params.start_commit;
 
-    // Returns all commits after synced_commit
-    store.getCommits(synced_commit, function(err, commits) {
+    var store = getStore(username);
+    store.get(document, function(err, doc) {
+      if (err) return res.json(500, { error: err });
+      var tailCommit = store.getRef(document, 'tail');
+
+      // TODO: we could have a low level interface for commit ranges
+      var commits = extractCommits(doc, tailCommit, startCommit);
       res.json(commits);
     });
   });
