@@ -1,7 +1,7 @@
 var _ = require('underscore');
 var passport = require('passport');
 var dir = '../../lib/';
-var Store = require('../../store/src/store');
+var Store = require('substance-store');
 
 // Redis DocStore instance
 // var store = new Store.RedisStore();
