@@ -8,7 +8,7 @@ var Store = require('substance-store');
 
 function getStore(username) {
   console.log('getting store for', username);
-  return new Store.RedisStore({scope: username});
+  return new Store.RedisStore({scope: username, port: 6380});
 }
 
 var csrf = require(dir + 'csrf');
@@ -203,12 +203,19 @@ apis.configure = function (app) {
     var id = req.body.id;
     var commits = req.body.commits;
     var meta = req.body.meta;
+    var refs = req.body.refs;
 
     var store = getStore(username);
     store.update(id, commits, function(err) {
       if (err) return res.json(500, { error: err });
-
+ 
       store.updateMeta(id, meta, function(err) {
+        // Update master ref
+        if (refs && refs["master"]) {
+          store.setRef(id, 'master', refs.master);
+          console.log('master ref has been updated to', refs.master);
+        }
+        
         res.json({"status": "ok"});
       });
     });
@@ -235,13 +242,14 @@ apis.configure = function (app) {
   });  
 
 
-  // Pull Commits
+  // Commits (Pull)
   // -----------
   // 
   // Returns all commits that happed after :synced_commit
   // 
   // Example
-  // curl http://duese.quasipartikel.at:3000/api/v1/documents/pull_commits/michael/doc-1-/commit-15
+  // curl http://duese.quasipartikel.at:3000/api/v1/documents/commits/michael/doc-1-/commit-15
+
 
   app.get('documents/commits/:username/:document/:start_commit', function(req, res, next) {
     var username = req.params.username;
@@ -251,25 +259,17 @@ apis.configure = function (app) {
     var store = getStore(username);
     store.get(document, function(err, doc) {
       if (err) return res.json(500, { error: err });
+
       var tailCommit = store.getRef(document, 'tail');
 
       // TODO: we could have a low level interface for commit ranges
-      var commits = extractCommits(doc, tailCommit, startCommit);
-      res.json(commits);
+      var commits = store.commits(document, tailCommit, startCommit);
+      res.json({
+        commits: commits,
+        refs: doc.refs,
+        meta: doc.meta
+      });
     });
   });
 
-
-  // Push Commits
-  // -----------
-  // Redundant (update does it already)
-
-  // app.post('/write_commits', function(req, res, next) {
-  //   var commits = JSON.parse(req.body.data);
-  //   var document = req.body.document;
-  //   var synced_commit = req.body.synced_commit;
-  //   store.update(document, commits, function(err) {
-  //     res.json({"status": "ok"});
-  //   });
-  // });
 };
