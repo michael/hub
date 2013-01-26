@@ -118,13 +118,15 @@ apis.configure = function (app) {
   // Clear publications
   // -----------
 
-  app.delete('/publications/:document', function(req, res) {
-    console.log('deleting...', req.params.document);
-    publications.clear(req.params.document, function(err) {
-      if (err) console.log('ERROR', err);
-      res.json({"status": "ok"});
+  app.delete('/publications/:document', 
+    authenticateCommon(),
+    function(req, res) {
+      console.log('deleting...', req.params.document);
+      publications.clear(req.params.document, function(err) {
+        if (err) console.log('ERROR', err);
+        res.json({"status": "ok"});
+      });
     });
-  });
 
 
   // List all users
