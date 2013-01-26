@@ -192,6 +192,20 @@ apis.configure = function (app) {
   });  
 
 
+  // Delete an existing document
+  // -----------
+
+  app.post('/documents/delete', function(req, res, next) {
+    var username = req.body.username;
+    var id = req.body.id;
+
+    getStore(username).delete(id, function(err) {
+      if (err) return res.json(500, { error: err });
+      res.json({"status": "ok"});
+    });
+  });
+
+
   // Update an existing document
   // -----------
   // 
