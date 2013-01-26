@@ -25,7 +25,8 @@
     "supertest": "0.4.x",
     "underscore": "1.4.x",
     "when": "1.x",
-    "moment": "1.7.2"
+    "moment": "1.7.2",
+    "substance-store": "git://github.com/substance/store.git"
   },
   "devDependencies": {
     "mocha": "*",
