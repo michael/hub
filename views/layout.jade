@@ -6,16 +6,21 @@ html
   body(class="section-#{section}")
     #header
       .title: a(href="/") Substance
-      .subtitle Towards open digital publishing
-      .separator
+      .menu
+        a(href="/explore") Explore
+        a(href="/blog") Blog
+        a(href="/") Info
+      img(src="/images/separator.png")
     #content
       block content
     #footer
-      .left
-        &copy; 2010 - 2013 Substance.io
-      .right
-        a(href="http://interior.substance.io",target="_blank") About
+      div.outro Towards open digital publishing
+      div.separator
+      div.links
+        a(href="http://interior.substance.io",target="_blank") Interior
         span &nbsp;&middot;&nbsp;
         a(href="http://github.com/substance",target="_blank") Source Code
+        span &nbsp;&middot;&nbsp;
+        a(href="http://pledgie.com/campaigns/18902",target="_blank") Campaign
         span &nbsp;&middot;&nbsp;
         a(href="http://twitter.com/_substance",target="_blank") Twitter

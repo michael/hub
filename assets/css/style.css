@@ -17,17 +17,19 @@ body {
   color: #222;
 }
 
+a {
+  color: #C55E3F;
+}
+
 #header {
   width: 800px;
   margin: auto;
-  border-bottom: 1px solid rgba(0,0,0, 0.4);
 }
 
 #header .title {
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
   margin: 20px 0;
-
 }
 
 #header .title a {
@@ -40,7 +42,34 @@ body {
   color: #000;
 }
 
+#header .menu {
+  text-align: center;
+  font-family: 'Open Sans';
+
+  /*font-weight: light;*/
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+#header .menu a {
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 0 20px;
+  color: rgba(0,0,0, 0.4);
+}
+
+#header .menu a:hover {
+  color: rgba(0,0,0, 0.6);
+}
+
 #header .subtitle {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #888;
+}
+
+#header .navigation {
   text-align: center;
   margin: 20px 0;
   font-size: 14px;
@@ -49,13 +78,31 @@ body {
 
 #footer {
   margin: auto;
+  text-align: center;
   width: 800px;
   overflow: auto;
   margin-top: 50px;
-  font-size: 13px;
+  font-size: 14px;
   padding: 10px 0;
   color: #666;
-  border-top: 1px solid rgba(0,0,0, 0.4);
+}
+
+
+#footer .outro {
+  font-size: 20px;
+
+}
+#footer .separator {
+  margin: 0 auto;
+  height: 1px;
+  width: 160px;
+  margin-top: 10px;
+  background: rgba(0,0,0, 0.4);
+}
+
+#footer .links {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #footer a {
@@ -211,6 +258,59 @@ header menu .action:focus {
 }
 
 
+/* Home page
+-------------------------------------------------------------------------------*/
+
+#info {
+  font-size: 20px;
+}
+
+
+#info img.composer-img {
+  box-shadow: 0px 5px 15px 3px rgba(0, 0, 0, 0.5);
+}
+
+#info .intro {
+  text-align: center;
+  font-style: italic;
+  color: rgba(0,0,0, 0.5);
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  font-size: 25px;
+}
+
+#info a.download {
+  display: block;
+  width: 300px;
+  height: 60px;
+  font-size: 25px;
+  background: rgba(0,0,0, 0.8);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  line-height:60px;
+  border-radius: 5px;
+  margin: 60px auto;
+}
+
+#info a.download:hover {
+  background: rgba(0,0,0, 0.9);
+}
+
+#info h2 {
+  text-align: center;
+}
+
+p.descr {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
 /* Document
 -------------------------------------------------------------------------------*/
 
@@ -219,9 +319,10 @@ header menu .action:focus {
  width: 800px;
  margin-top: 60px;
  font-family: 'Palatino Linotype', 'Merriweather';
- font-size: 18px;
+ font-size: 20px;
+ line-height: 1.6em;
+ color: #222;
 }
-
 
 #document .title {
   color: #C55E3F;
@@ -232,20 +333,33 @@ header menu .action:focus {
 #document .author {
   text-align: center;
   font-size: 25px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 #document .date {
   text-align: center;
-  font-size: 16px;
-  color: rgba(0,0,0, 0.7);
-  margin-top: 30px;
+  font-size: 20px;
+  font-family: 'Open Sans';
+  /*font-weight: light;*/
+  color: rgba(0,0,0, 0.5);
+  margin-bottom: 30px;
+}
+
+.start-writing {
+  margin-top: 40px;
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  font-size: 30px;
+  font-style: italic;
 }
 
 #document .abstract {
   text-align: center;
   font-style: italic;
   color: rgba(0,0,0, 0.5);
+  font-size: 25px;
   margin-top: 50px;
   margin-bottom: 50px;
   padding-bottom: 30px;

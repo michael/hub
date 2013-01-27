@@ -76,10 +76,10 @@ DocumentRenderer.prototype.render = function() {
   var content = this.doc.content;
   var properties = content.properties;
 
-  var html = '<div class="title">'+properties.title+'</div>';
-
-  html += '<div class="author">'+this.doc.creator+'</div>';
-  html += '<div class="date">'+this.doc.created_at.toDateString()+'</div>';
+  var html = '<div class="date">'+this.doc.created_at.toDateString()+'</div>';
+  
+  html += '<div class="title">'+properties.title+'</div>';
+  html += '<div class="author">by '+this.doc.creator.name+'</div>';
   html += '<div class="abstract">'+properties.abstract+'</div>';
 
   _.each(this.nodes(), function(node) {
@@ -108,10 +108,32 @@ routes.configure = function (app) {
   // ===========
 
 
-  // Index
+  // Startpage
   // -----------
 
   app.get('/', function(req, res) {
+    res.render('info', {
+      section: 'info',
+      util: util
+    });
+  });
+
+
+  // Blog
+  // -----------
+
+  app.get('/blog', function(req, res) {
+    res.render('blog', {
+      section: 'blog',
+      util: util
+    }); 
+  });
+
+
+  // Explore
+  // -----------
+
+  app.get('/explore', function(req, res) {
     publications.findAll(function(err, documents) {
       // res.json(documents);
       res.render('documents', {
@@ -121,6 +143,7 @@ routes.configure = function (app) {
       });
     });
   });
+
 
   // Homepage
   // -----------
@@ -134,23 +157,30 @@ routes.configure = function (app) {
 
   app.get('/documents/:document', function(req, res) {
     publications.findByDocument(req.params.document, function(err, publications) {
+
       doc = _.last(publications);
-      var renderer = new DocumentRenderer({
-        content: JSON.parse(doc.data),
-        creator: doc.creator,
-        created_at: doc.created_at
+
+      users.findById(doc.creator, function(err, user) {
+        console.log('User fetched', doc.creator, user);
+
+        var renderer = new DocumentRenderer({
+          content: JSON.parse(doc.data),
+          creator: {
+            username: doc.creator,
+            name: user ? user.name : doc.creator,
+          },
+          created_at: doc.created_at
+        });
+
+        // var nodes = doc.nodes();
+        var html = renderer.render();
+
+        res.render('document', {
+          content: html,
+          section: 'login',
+          util: util
+        });        
       });
-
-      // var nodes = doc.nodes();
-      var html = renderer.render();
-
-      res.render('document', {
-        content: html,
-        section: 'login',
-        util: util
-      });
-
-      // res.send(html);
     });
   });
 
