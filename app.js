@@ -40,7 +40,7 @@ module.exports = function create () {
 
     app.use(assets());
 
-    app.use(express['static'](path.join(__dirname, 'public')));
+    app.use(express['static'](path.join(__dirname, 'assets')));
 
   });
 
