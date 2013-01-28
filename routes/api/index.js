@@ -86,6 +86,9 @@ apis.configure = function (app) {
     });
   });
 
+  // Authentication / Authorization
+  // ===================
+
   app.post('/authorizations',
     authenticateUser(),
     authenticateApplication(),
@@ -122,17 +125,22 @@ apis.configure = function (app) {
   // Create Publication
   // -----------
 
-  app.post('/publications', function(req, res) {
-    var token    = req.get('Authorization').split(' ')[1];
-    var document = req.body.document;
-    var username = req.body.username;
-    var data     = req.body.data;
+  app.post('/publications',
+    authenticateCommon(),
+    function(req, res) {
+      var token    = req.get('Authorization').split(' ')[1];
+      var document = req.body.document;
+      var username = req.body.username;
+      var data     = req.body.data;
 
-    // TODO: Check if authorized, using token from the header
-    publications.create(document, username, data, function() {
-      res.json({"status": "ok"});
+      console.log('authorized... now creating publication', req.headers);
+      console.log('BODY\n', req.body);
+
+      // TODO: Check if authorized, using token from the header
+      publications.create(document, username, data, function() {
+        res.json({"status": "ok"});
+      });
     });
-  });
 
 
 
@@ -169,11 +177,11 @@ apis.configure = function (app) {
   // Authenticate user
   // -----------
 
-  app.post('/authenticate', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    res.json({"status": "ok", "token": db.uuid(), "username": username});
-  });
+  // app.post('/authenticate', function(req, res) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+  //   res.json({"status": "ok", "token": db.uuid(), "username": username});
+  // });
 
 
   // Register user
@@ -348,7 +356,6 @@ apis.configure = function (app) {
   // 
   // Example
   // curl http://duese.quasipartikel.at:3000/api/v1/documents/commits/michael/doc-1-/commit-15
-
 
   app.get('documents/commits/:username/:document/:start_commit', function(req, res, next) {
     var username = req.params.username;
