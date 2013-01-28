@@ -42,14 +42,14 @@ function authenticateCommon () {
 }
 
 function authenticateUser () {
-  console.log('AUTHENTICATE USER?');
   return passport.authenticate('basic', {
     session: false
   });
 }
 
+
 function authenticateApplication () {
-  return authenticate('oauth2-client-password', function (req, res, next, err, client) {
+  return authenticate(['oauth2-client-password'], function (req, res, next, err, client) {
     if (err) {
       next(err);
     } else if (!client) {
@@ -86,14 +86,14 @@ apis.configure = function (app) {
     });
   });
 
-  app.post('/authorization',
+  app.post('/authorizations',
     authenticateUser(),
     authenticateApplication(),
     function (req, res) {
-      console.log('meeh');
       var user = req.user;
       var application = req.client;
-      authorizations.findOrCreate(user.uuid, application.uuid, 'all', out(res));
+
+      authorizations.findOrCreate(user.username, application.uuid, 'all', out(res));
     });
 
   app.get('/authorization',
@@ -102,13 +102,13 @@ apis.configure = function (app) {
     function (req, res) {
       var user = req.user;
       var application = req.client;
-      authorizations.findByUserAndApplication(user.uuid, application.uuid, out(res));
+      authorizations.findByUserAndApplication(user.username, application.uuid, out(res));
     });
 
   app.get('/authorizations',
     authenticateCommon(),
     function (req, res) {
-      authorizations.findByUser(req.user.uuid, out(res));
+      authorizations.findByUser(req.user.username, out(res));
     });
 
   app.get('/authorizations/:uuid',
@@ -116,7 +116,7 @@ apis.configure = function (app) {
       session: false
     }),
     function (req, res) {
-      authorizations.secureFindById(req.user.uuid, req.params.uuid, out(res));
+      authorizations.secureFindById(req.user.username, req.params.uuid, out(res));
     });
 
   // Create Publication
@@ -133,6 +133,8 @@ apis.configure = function (app) {
       res.json({"status": "ok"});
     });
   });
+
+
 
 
   // Clear publications
@@ -153,13 +155,15 @@ apis.configure = function (app) {
   // List all users
   // -----------
 
-  app.get('/users', function(req, res) {
-    users.findAll(function (err, users) {
-      res.json(_.map(users, function (user) {
-        return _.omit(user, 'hash');
-      }));
+  app.get('/users', 
+    authenticateCommon(),
+    function(req, res) {
+      users.findAll(function (err, users) {
+        res.json(_.map(users, function (user) {
+          return _.omit(user, 'hash');
+        }));
+      });
     });
-  });
 
 
   // Authenticate user
@@ -260,7 +264,6 @@ apis.configure = function (app) {
     store.create(id, function(err, doc) {
       if (err) return res.json(500, { error: err });
 
-      console.log('CREAATED DOC ', id, ' on server');
       if (meta) {
         console.log('with metainfo');
         store.updateMeta(id, meta, function(err) {
