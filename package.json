@@ -20,12 +20,15 @@
     "oauth2orize": "0.1.x",
     "passport": "0.1.x",
     "passport-local": "0.1.x",
+    "passport-http": "0.1.x",
+    "passport-hash": "0.1.x",
     "passport-oauth2-client-password": "0.1.x",
     "pg": "0.8.x",
     "supertest": "0.4.x",
     "underscore": "1.4.x",
     "when": "1.x",
     "moment": "1.7.2",
+
     "substance-store": "git://github.com/substance/store.git"
   },
   "devDependencies": {
