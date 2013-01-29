@@ -2,13 +2,10 @@ Substance Hub
 ===
 
 
-## Database setup
-
-Just setup a new Postgres database named after your user. And create a Postgres user with your user as both name and password.
-
 ## Prerequisites
 
 - Install Node.js 0.8.x
+- Install Redis (so you have redis-server available)
 - PCRE (`sudo port install pcre`)
 - Automake (really?) (`sudo port install automake`)
 - Autoconf (`sudo port install autoconf`)
@@ -27,6 +24,10 @@ and...
 
     npm install # native extension substance-store is built
 
-finally...
+start redis (by using the redis.conf in the repository, it uses port 6380 for the docstore)
 
-    npm start
+    localhost:hub michael $ redis-server redis.conf
+
+make sure you have a postgres instance running and finally ...
+
+    POSTGRES_CONN="postgres://user:pwd@localhost:5432/substance" npm start
