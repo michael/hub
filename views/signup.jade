@@ -4,6 +4,7 @@ block content
   h1 Signup
   if !user
     form(action="/signup",method="post")
+      label: input(name="name",placeholder="Name")
       label: input(name="username",placeholder="Username")
       label: input(name="email",type="email",placeholder="Email")
       label: input(name="password",type="password",placeholder="Password")

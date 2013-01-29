@@ -261,8 +261,9 @@ routes.configure = function (app) {
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
+    var name = req.body.name;
 
-    users.create(email, username, password, function (err, uuid) {
+    users.create(email, username, name, password, function (err, uuid) {
       if (err) next(err);
       else next();
     });
