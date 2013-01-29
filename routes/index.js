@@ -135,10 +135,25 @@ routes.configure = function (app) {
 
   app.get('/explore', function(req, res) {
     publications.findAll(function(err, documents) {
-      // res.json(documents);
       res.render('documents', {
         documents: documents,
-        section: 'login',
+        section: 'explore',
+        util: util
+      });
+    });
+  });
+
+
+  // User profile for user :username
+  // -----------
+
+  app.get('/:username', function(req, res) {
+    var username = req.params.username;
+
+    publications.findDocumentsByUser(username, function(err, documents) {
+      res.render('profile', {
+        documents: documents,
+        section: 'explore',
         util: util
       });
     });
@@ -208,6 +223,9 @@ routes.configure = function (app) {
       section: 'signup'
     });
   });
+
+
+
 
 
   // Logout action

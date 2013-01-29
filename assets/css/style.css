@@ -215,6 +215,12 @@ header menu .action:focus {
 
 }
 
+.documents .no-documents {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
 .documents a.document {
   text-decoration: none;
   display: block;
