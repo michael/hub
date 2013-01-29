@@ -7,7 +7,6 @@ var Store = require('substance-store');
 // var store = new Store.RedisStore();
 
 function getStore(username) {
-  console.log('getting store for', username);
   return new Store.RedisStore({scope: username, port: 6380});
 }
 
@@ -122,6 +121,7 @@ apis.configure = function (app) {
       authorizations.secureFindById(req.user.username, req.params.uuid, out(res));
     });
 
+
   // Create Publication
   // -----------
 
@@ -143,8 +143,6 @@ apis.configure = function (app) {
     });
 
 
-
-
   // Clear publications
   // -----------
 
@@ -163,38 +161,28 @@ apis.configure = function (app) {
   // List all users
   // -----------
 
-  app.get('/users', 
-    authenticateCommon(),
-    function(req, res) {
-      users.findAll(function (err, users) {
-        res.json(_.map(users, function (user) {
-          return _.omit(user, 'hash');
-        }));
-      });
+  app.get('/users', function(req, res) {
+    users.findAll(function (err, users) {
+      res.json(_.map(users, function (user) {
+        return _.omit(user, 'hash');
+      }));
     });
-
-
-  // Authenticate user
-  // -----------
-
-  // app.post('/authenticate', function(req, res) {
-  //   var username = req.body.username;
-  //   var password = req.body.password;
-  //   res.json({"status": "ok", "token": db.uuid(), "username": username});
-  // });
+  });
 
 
   // Register user
   // -----------
 
-  app.post('/register', function(req, res, next) {
-    var params = req.body;
+  app.post('/register', 
+    authenticateApplication(),
+    function(req, res, next) {
+      var params = req.body;
 
-    users.create(params.email, params.username, params.name, params.password, function (err, uuid) {
-      if (err) return res.json({"status": "error"});
-      res.json({"status": "ok", "token": db.uuid(), "username": params.username});
+      users.create(params.email, params.username, params.name, params.password, function (err, uuid) {
+        if (err) return res.json({"status": "error"});
+        res.json({"status": "ok", "token": db.uuid(), "username": params.username});
+      });
     });
-  });
 
 
   // Replication API
@@ -263,40 +251,44 @@ apis.configure = function (app) {
   // Create a fresh new document
   // -----------
 
-  app.post('/documents/create', function(req, res, next) {
-    var username = req.body.username;
-    var id = req.body.id || db.uuid();
-    var meta = req.body.meta;
+  app.post('/documents/create',
+    authenticateCommon(),
+    function(req, res, next) {
+      var username = req.body.username;
+      var id = req.body.id || db.uuid();
+      var meta = req.body.meta;
 
-    var store = getStore(username);
-    store.create(id, function(err, doc) {
-      if (err) return res.json(500, { error: err });
+      var store = getStore(username);
+      store.create(id, function(err, doc) {
+        if (err) return res.json(500, { error: err });
 
-      if (meta) {
-        console.log('with metainfo');
-        store.updateMeta(id, meta, function(err) {
+        if (meta) {
+          console.log('with metainfo');
+          store.updateMeta(id, meta, function(err) {
+            res.json(doc);
+          });
+        } else {
+          console.log('without metainfo');
           res.json(doc);
-        });
-      } else {
-        console.log('without metainfo');
-        res.json(doc);
-      }
-    });
-  });  
+        }
+      });
+    });  
 
 
   // Delete an existing document
   // -----------
 
-  app.post('/documents/delete', function(req, res, next) {
-    var username = req.body.username;
-    var id = req.body.id;
+  app.post('/documents/delete', 
+    authenticateCommon(),
+    function(req, res, next) {
+      var username = req.body.username;
+      var id = req.body.id;
 
-    getStore(username).delete(id, function(err) {
-      if (err) return res.json(500, { error: err });
-      res.json({"status": "ok"});
+      getStore(username).delete(id, function(err) {
+        if (err) return res.json(500, { error: err });
+        res.json({"status": "ok"});
+      });
     });
-  });
 
 
   // Update an existing document
@@ -305,32 +297,35 @@ apis.configure = function (app) {
   // Test Example
   // curl -X POST -H "Content-Type: application/json" -d '{"username": "michael", "id": "dd9e821d5e01300cf06a4c61477d18a9", "commits": [{"op": ["insert", {"id": "heading:42c72d87e40f529dba27a9970c0a6ef3","type": "heading","data": { "content": "Hello World" }}], "sha": "b0a4df43adba704eaef6809ada25bc4a"}]}' curl -X POST http://duese.quasipartikel.at:3000/api/v1/documents/update
 
-  app.post('/documents/update', function(req, res, next) {
-    var username = req.body.username;
-    var id = req.body.id;
-    var commits = req.body.commits;
-    var meta = req.body.meta;
-    var refs = req.body.refs;
+  app.post('/documents/update', 
+    authenticateCommon(),
+    function(req, res, next) {
+      var username = req.body.username;
+      var id = req.body.id;
+      var commits = req.body.commits;
+      var meta = req.body.meta;
+      var refs = req.body.refs;
 
-    var store = getStore(username);
-    store.update(id, commits, function(err) {
-      if (err) return res.json(500, { error: err });
- 
-      store.updateMeta(id, meta, function(err) {
-        // Update master ref
-        if (refs && refs["master"]) {
-          store.setRef(id, 'master', refs.master);
-          console.log('master ref has been updated to', refs.master);
-        }
-        
-        res.json({"status": "ok"});
+      var store = getStore(username);
+      store.update(id, commits, function(err) {
+        if (err) return res.json(500, { error: err });
+   
+        store.updateMeta(id, meta, function(err) {
+          // Update master ref
+          if (refs && refs["master"]) {
+            store.setRef(id, 'master', refs.master);
+            console.log('master ref has been updated to', refs.master);
+          }
+          
+          res.json({"status": "ok"});
+        });
       });
     });
-  });
 
 
   // Query documents status
   // -----------
+  // 
   // Example
   // curl http://duese.quasipartikel.at:3000/api/v1/documents/status/username
 
@@ -357,25 +352,27 @@ apis.configure = function (app) {
   // Example
   // curl http://duese.quasipartikel.at:3000/api/v1/documents/commits/michael/doc-1-/commit-15
 
-  app.get('documents/commits/:username/:document/:start_commit', function(req, res, next) {
-    var username = req.params.username;
-    var document = req.params.document;
-    var startCommit = req.params.start_commit;
+  app.get('documents/commits/:username/:document/:start_commit',
+    authenticateCommon(),
+    function(req, res, next) {
+      var username = req.params.username;
+      var document = req.params.document;
+      var startCommit = req.params.start_commit;
 
-    var store = getStore(username);
-    store.get(document, function(err, doc) {
-      if (err) return res.json(500, { error: err });
+      var store = getStore(username);
+      store.get(document, function(err, doc) {
+        if (err) return res.json(500, { error: err });
 
-      var tailCommit = store.getRef(document, 'tail');
+        var tailCommit = store.getRef(document, 'tail');
 
-      // TODO: we could have a low level interface for commit ranges
-      var commits = store.commits(document, tailCommit, startCommit);
-      res.json({
-        commits: commits,
-        refs: doc.refs,
-        meta: doc.meta
+        // TODO: we could have a low level interface for commit ranges
+        var commits = store.commits(document, tailCommit, startCommit);
+        res.json({
+          commits: commits,
+          refs: doc.refs,
+          meta: doc.meta
+        });
       });
     });
-  });
 
 };
