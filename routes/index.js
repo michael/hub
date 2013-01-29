@@ -158,7 +158,8 @@ routes.configure = function (app) {
   app.get('/documents/:document', function(req, res) {
     publications.findByDocument(req.params.document, function(err, publications) {
 
-      doc = _.last(publications);
+      var doc = _.last(publications);
+      if (!doc) return res.send(404, "Document Not found");
 
       users.findById(doc.creator, function(err, user) {
         console.log('User fetched', doc.creator, user);
