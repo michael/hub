@@ -179,8 +179,10 @@ apis.configure = function (app) {
       var params = req.body;
 
       users.create(params.email, params.username, params.name, params.password, function (err, uuid) {
-        if (err) return res.json({"status": "error"});
-        res.json({"status": "ok", "token": db.uuid(), "username": params.username});
+        if (err) return res.json(500, err);
+        authorizations.findOrCreate(params.username, params.client_id, 'all', function(err, authorization) {
+          res.json({"status": "ok", "token": authorization.token, "username": params.username});
+        });
       });
     });
 
