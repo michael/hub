@@ -135,12 +135,12 @@ DocumentRenderer.prototype.render = function() {
   var html = '<div class="date">'+this.doc.created_at.toDateString()+'</div>';
   
   html += '<div class="title">'+properties.title+'</div>';
-  html += '<div class="author">by '+this.doc.creator.name+'</div>';
+  html += '<div class="author">by <a href="/'+this.doc.creator.username+'">'+this.doc.creator.name+'</a></div>';
   html += '<img src="/images/separator.png">';
+
   if (properties.abstract && properties.abstract !== "Enter abstract") {
     html += '<div class="abstract">'+properties.abstract+'</div>';  
   }
-
 
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
@@ -212,6 +212,7 @@ routes.configure = function (app) {
 
     publications.findDocumentsByUser(username, function(err, documents) {
       res.render('profile', {
+        username: username,
         documents: documents,
         section: 'explore',
         util: util
