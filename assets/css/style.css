@@ -330,6 +330,27 @@ p.descr {
  color: #222;
 }
 
+#document span.str {
+  font-weight: bold;
+}
+
+#document span.em {
+  font-style: italic;
+}
+
+#document span.idea {
+  background: rgba(102, 182, 32, 0.5);
+}
+
+#document span.question {
+  background: rgba(16, 167, 222, 0.5);
+}
+
+#document span.error {
+  background: rgba(237, 96, 48, 0.5);
+}
+
+
 #document .title {
   color: #C55E3F;
   font-size: 50px;

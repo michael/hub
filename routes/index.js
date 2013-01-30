@@ -76,6 +76,62 @@ DocumentRenderer.prototype.render = function() {
   var content = this.doc.content;
   var properties = content.properties;
 
+  function annotationsForNode(node) {
+    var annotations = content.annotations;
+    var result = [];
+    var mappings = {
+      "starts": {},
+      "ends": {}
+    };
+
+    function registerMapping(type, index, annotation) {
+      if (!mappings[type][index]) mappings[type][index] = [];
+      mappings[type][index].push(annotation);
+    }
+
+    _.each(annotations, function(a) {
+      if (a.node === node.id && a.pos) {
+        result.push(a);
+        registerMapping('starts', a.pos[0], a);
+        registerMapping('ends', a.pos[0] + a.pos[1], a);
+      }
+    });
+
+    return mappings;
+  }
+
+  function renderAnnotatedContent(node) {
+    var mappings = annotationsForNode(node);
+
+    function tagsFor(type, index) {
+      var annotations = mappings[type][index];
+      var res = "";
+
+      _.each(annotations, function(a) {
+        if (type === "starts") {
+          res += '<span class="'+a.type+'">';
+        } else {
+          res += '</span>';
+        }
+      });
+      return res;
+    }
+
+    var output = "";
+    _.each(node.content.split(''), function(ch, index) {
+      // 1. prepend start tags
+      output += tagsFor("starts", index);
+
+      // 2. add character
+      output += ch;
+
+      // 3. append end tags
+      output += tagsFor("ends", index);
+    });
+    return output;
+  }
+
+
   var html = '<div class="date">'+this.doc.created_at.toDateString()+'</div>';
   
   html += '<div class="title">'+properties.title+'</div>';
@@ -84,9 +140,9 @@ DocumentRenderer.prototype.render = function() {
 
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
-      html += '<h2>'+node.content+'</h2>';
+      html += '<h2>'+renderAnnotatedContent(node)+'</h2>';
     } else {
-      html += '<p>'+node.content+'</p>';
+      html += '<p>'+renderAnnotatedContent(node)+'</p>';
     }
   });
   return html;
@@ -177,8 +233,6 @@ routes.configure = function (app) {
       if (!doc) return res.send(404, "Document Not found");
 
       users.findById(doc.creator, function(err, user) {
-        console.log('User fetched', doc.creator, user);
-
         var renderer = new DocumentRenderer({
           content: JSON.parse(doc.data),
           creator: {
