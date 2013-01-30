@@ -12,13 +12,19 @@ body {
   color: #444;
   margin: 0;
   padding: 0;
-  font-family: 'Palatino Linotype', 'Merriweather';
+  font-family: 'Baskerville', 'Lato';
   font-weight: 400;
   color: #222;
 }
 
 a {
-  color: #C55E3F;
+  color: rgba(111, 106, 70, 0.8);
+  text-decoration: none;
+}
+
+
+a:hover {
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #header {
@@ -30,23 +36,23 @@ a {
   text-align: center;
   font-size: 25px;
   margin: 20px 0;
+
 }
 
 #header .title a {
   text-decoration: none;
   text-align: center;
-  color: #222;
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #header .title a:hover {
-  color: #000;
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #header .menu {
   text-align: center;
   font-family: 'Open Sans';
 
-  /*font-weight: light;*/
   font-size: 16px;
   margin-bottom: 40px;
 }
@@ -55,11 +61,11 @@ a {
   text-transform: uppercase;
   text-decoration: none;
   margin: 0 20px;
-  color: rgba(0,0,0, 0.4);
+  color: rgba(111, 106, 70, 0.7);
 }
 
 #header .menu a:hover {
-  color: rgba(0,0,0, 0.6);
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #header .subtitle {
@@ -84,7 +90,7 @@ a {
   margin-top: 50px;
   font-size: 14px;
   padding: 10px 0;
-  color: #666;
+  color: rgba(111, 106, 70, 1.0);
 }
 
 
@@ -106,12 +112,13 @@ a {
 }
 
 #footer a {
-  color: #666;
+  color: rgba(111, 106, 70, 0.8);
   text-decoration: none;
 }
 
 #footer a:hover {
   color: #222;
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #footer .left {
@@ -145,7 +152,6 @@ header menu {
   padding: 0;
   margin: 10px 1em;
   float: right;
-  /*height: 40px;*/
 }
 
 header menu .info {
@@ -238,9 +244,8 @@ header menu .action:focus {
 
 .documents .document .title {
   line-height: 80px;
-  font-family: 'Palatino Linotype', 'Merriweather';
-  font-size: 30px;
-  color: #C55E3F;
+  font-size: 25px;
+  color: rgb(111, 106, 70);
 }
 
 .documents .document .author {
@@ -271,46 +276,39 @@ header menu .action:focus {
   font-size: 20px;
 }
 
-
-#info img.composer-img {
-  box-shadow: 0px 5px 15px 3px rgba(0, 0, 0, 0.5);
-}
-
 #info .intro {
   text-align: center;
-  font-style: italic;
-  color: rgba(0,0,0, 0.5);
+  color: rgba(111, 106, 70, 1.0);
   margin-top: 40px;
   padding-bottom: 40px;
-
-  font-size: 25px;
+  font-size: 30px;
 }
 
-#info a.download {
+#info a.button {
   display: block;
   width: 300px;
-  height: 60px;
+  height: 50px;
   font-size: 25px;
-  background: rgba(0,0,0, 0.8);
-  color: #fff;
+  background: rgba(94, 91, 72, 0.9);
+  color: rgba(255,255, 255, 0.9);
   text-decoration: none;
   text-align: center;
-  line-height:60px;
+  line-height:50px;
   border-radius: 5px;
-  margin: 60px auto;
+  margin: 40px auto;
 }
 
-#info a.download:hover {
-  background: rgba(0,0,0, 0.9);
+#info a.button:hover {
+  background: rgba(94, 91, 72, 1.0);
 }
 
 #info h2 {
-  text-align: center;
+  font-weight: normal;
 }
 
 p.descr {
+  line-height: 1.8em;
   margin-bottom: 40px;
-  text-align: center;
 }
 
 .centered {
@@ -324,10 +322,17 @@ p.descr {
  margin: auto; 
  width: 800px;
  margin-top: 60px;
- font-family: 'Palatino Linotype', 'Merriweather';
  font-size: 20px;
- line-height: 1.6em;
- color: #222;
+ line-height: 1.8em;
+ color: rgba(0,0,0, 0.8);
+}
+
+#document p {
+  margin-bottom: 40px;
+}
+
+#document h2 {
+  font-weight: normal;
 }
 
 #document span.str {
@@ -352,43 +357,42 @@ p.descr {
 
 
 #document .title {
-  color: #C55E3F;
+  color: rgba(111, 106, 70, 1.0);
   font-size: 50px;
   text-align: center;
+  line-height: 70px;
 }
 
 #document .author {
   text-align: center;
   font-size: 25px;
   margin-top: 20px;
+  margin-bottom: 80px;
+  color: rgba(111, 106, 70, 1.0);
 }
 
 #document .date {
   text-align: center;
   font-size: 20px;
   font-family: 'Open Sans';
-  /*font-weight: light;*/
-  color: rgba(0,0,0, 0.5);
+  color: rgba(111, 106, 70, 1.0);
   margin-bottom: 30px;
 }
 
 .start-writing {
   margin-top: 40px;
   padding: 30px 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid rgba(0,0,0, 0.05);
+  border-bottom: 1px solid rgba(0,0,0, 0.05);
   text-align: center;
   font-size: 30px;
   font-style: italic;
 }
 
 #document .abstract {
-  text-align: center;
   font-style: italic;
   color: rgba(0,0,0, 0.5);
   font-size: 25px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid rgba(0,0,0, 0.4);
+  margin-bottom: 60px;
+  margin-top: 40px;
 }

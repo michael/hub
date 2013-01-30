@@ -136,7 +136,11 @@ DocumentRenderer.prototype.render = function() {
   
   html += '<div class="title">'+properties.title+'</div>';
   html += '<div class="author">by '+this.doc.creator.name+'</div>';
-  html += '<div class="abstract">'+properties.abstract+'</div>';
+  html += '<img src="/images/separator.png">';
+  if (properties.abstract && properties.abstract !== "Enter abstract") {
+    html += '<div class="abstract">'+properties.abstract+'</div>';  
+  }
+
 
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
