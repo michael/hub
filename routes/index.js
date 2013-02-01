@@ -192,7 +192,7 @@ routes.configure = function (app) {
   // Temp permalink
   // -----------
 
-  app.get('/blog/2012/04/25/the-new-substane-is-here', function(req, res) {
+  app.get('/blog/2013/02/01/the-new-substane-is-here', function(req, res) {
     res.render('blog', {
       section: 'blog',
       util: util
