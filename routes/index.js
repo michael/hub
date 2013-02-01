@@ -198,6 +198,13 @@ routes.configure = function (app) {
       util: util
     }); 
   });
+  
+  app.get('/blog/2013/02/01/the-new-substance-is-here', function(req, res) {
+    res.render('blog', {
+      section: 'blog',
+      util: util
+    }); 
+  });
 
 
   // Explore
