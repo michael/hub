@@ -12,6 +12,7 @@ var setup = require('./lib/setup');
 var authentication = require('./lib/authentication');
 var users = require('./lib/users');
 var users = require('./lib/publications');
+var errors = require('./lib/errors');
 
 var db = require('./lib/db');
 var routes = require('./routes');
@@ -40,6 +41,7 @@ module.exports = function create () {
     app.use(app.router);
 
     app.use(assets());
+    app.use(errors.errorHandler());
 
     app.use(express['static'](path.join(__dirname, 'assets')));
 
@@ -49,6 +51,7 @@ module.exports = function create () {
     app.use(express.errorHandler());
 
     db.configure({
+      host: 'localhost',
       user: process.env.USER,
       password: process.env.USER
     });

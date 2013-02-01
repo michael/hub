@@ -27,37 +27,42 @@ function authenticate (types, options, callback) {
     options = {};
   }
   return function (req, res, next) {
-    passport.authenticate(types, options, function (err, user, info) {
-      var args = Array.prototype.slice.call(arguments);
-      callback.apply(this, [req, res, next].concat(args));
-    }).apply(passport, arguments);
+    // Signature: req, res, next, err, user, info
+    var cb = _.bind(callback, null, req, res, next);
+    passport.authenticate(types, options, cb).call(this, req, res, next);
+  };
+}
+
+function createCommonCallback (property, message) {
+  property || (property = 'user');
+  message || (message = 'Authentication failed');
+  return function (req, res, next, err, object, info) {
+    if (err || !object) {
+      next(new errors.Unauthorized(err ? err.message : message));
+    } else {
+      req[property] = object;
+      next();
+    }
   };
 }
 
 function authenticateCommon () {
-  return passport.authenticate(['hash', 'basic'], {
+  return authenticate(['hash', 'basic'], {
     session: false
-  });
+  }, createCommonCallback('user'));
 }
 
 function authenticateUser () {
-  return passport.authenticate('basic', {
+  return authenticate('basic', {
     session: false
-  });
+  }, createCommonCallback('user'));
 }
 
 
 function authenticateApplication () {
-  return authenticate(['oauth2-client-password'], function (req, res, next, err, client) {
-    if (err) {
-      next(err);
-    } else if (!client) {
-      res.status(401).end('Unauthorized');
-    } else {
-      req.client = client;
-      next();
-    }
-  });
+  return authenticate(['oauth2-client-password'], {
+    session: false
+  }, createCommonCallback('client', 'Wrong Application credentials'));
 }
 
 function out (res) {
