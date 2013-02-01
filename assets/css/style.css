@@ -224,6 +224,17 @@ header menu .action:focus {
 }
 
 
+/* User Profile
+-------------------------------------------------------------------------------*/
+
+#blog {
+  font-size: 20px;
+  line-height: 1.8em;
+  color: rgba(0,0,0, 0.8);
+}
+
+#blog h1, #blog h2, #blog h3, #blog h4 { font-weight: normal; }
+
 /* Documents Listing
 -------------------------------------------------------------------------------*/
 
