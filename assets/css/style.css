@@ -250,6 +250,14 @@ header menu .action:focus {
 
 #blog h1, #blog h2, #blog h3, #blog h4 { font-weight: normal; }
 
+
+#blog p {
+  margin-bottom: 50px;
+}
+#blog img {
+  max-width: 800px;
+}
+
 /* Documents Listing
 -------------------------------------------------------------------------------*/
 

@@ -2,24 +2,23 @@ extends layout
 
 block content
   #blog
-    <h1>The New Substance is here</h1>
+    <h1>The New Substance Is Here</h1>
 
-    <p>For the last couple of years we have been trying to figure out <a href="http://blog.okfn.org/2013/01/15/content-as-data-towards-open-digital-publishing-with-substance/">a better way of working with digital documents</a>. From content creation to publishing we believe that there should be better tools that address the problem from a fresh angle. After the first release of our web-based Substance.io platform, with most of the functionality in place, we took a step back and decided to give the whole thing a new spin, and that&#8217;s how the new Substance platform came to be.</p>
+    <p>For the last couple of years our team of Open Source enthusiasts have been trying to figure out a better way of <a href="http://blog.okfn.org/2013/01/15/content-as-data-towards-open-digital-publishing-with-substance/">working with digital documents</a>. From content creation to publishing we believe that there should be better tools that address the problem from a fresh angle. After the first release of our web-based Substance.io platform, with most of the functionality in place, we took a step back and decided to give the whole thing a new spin. And that's how the new Substance platform came to be.</p>
 
     <h2>Substance Alpha</h2>
 
     <p>The new Substance platform is released as <a href="http://interior.substance.io">Open Source</a> and comes with a completely new architecture that allows us to detach the presentation layer from your actual content.</p>
 
-    <h2>What&#8217;s new?</h2>
 
     <img src="http://hub.substance.io/images/composer.png" alt="The Composer" />
 
 
-    <p>We now provide you with a native application, the <a href="http://interior.substance.io/modules/composer.html">Substance Composer</a> from where you create your documents, and work on them locally until they are ready to be published to the Substance.io.</p>
+    <p>We now provide you with a native application, the <a href="http://interior.substance.io/modules/composer.html">Substance Composer</a> from where you create your documents, and work on them locally until they are ready to be published on Substance.io.</p>
 
-    <p>With the composer you work your way through the document in a structured way. Each element of the document is inserted sequentially. You can create, move around and delete this blocks and have them be part of your document since Substance considers your document as a sequence of content elements rather than one big chunk of formatted text.</p>
+    <p>With the Composer you work your way through the document in a structured way. Each element of the document is inserted sequentially. You can create, move around and delete this blocks and have them be part of your document since Substance considers your document as a sequence of content elements rather than one big chunk of formatted text.</p>
 
-    <img src="http://f.cl.ly/items/2l1z1e1r1x3N422p3a2P/structured-composition.png" alt="Structured Composition" />
+    <div class="centered"><img src="http://f.cl.ly/items/2l1z1e1r1x3N422p3a2P/structured-composition.png" alt="Structured Composition" /></div>
 
 
     <p>Behind the scenes all this is accomplished by the <a href="http://interior.substance.io/modules/document.html">Substance Document</a>, one of the key ingredients of the new architecture and the responsible component for all that structured composition jazz.</p>
@@ -31,33 +30,36 @@ block content
 
     <p>Text nodes allows you to annotate any portion of the document, not only to emphasize or strengthen the tone of certain passages but also attach suggest changes, questions or &#8220;patches&#8221; for this selection. With such workflow collaboration will be possible in the future releases unveiling the big potential of the Substance stack.</p>
 
-    <img src="http://f.cl.ly/items/3l2O350602442O2k3q0j/comments.png" alt="Comments" />
+    <div class="centered"><img src="http://f.cl.ly/items/3l2O350602442O2k3q0j/comments.png" alt="Comments" /></div>
 
 
     <p>Much like a git repository does, the Composer also keeps a full history of your document changes from the beginning, which is not only nice on a regular undo/redo history scenario, but also allows your full document&#8217;s replication between users and between you and the server. Once you publish them, a copy will become available online in the <a href="https://substance.io">Substance.io</a> sever.</p>
 
-    <img src="http://f.cl.ly/items/0E2J2N0M1N1y0W15412H/replication.png" alt="Replication" />
+    <div class="centered"><img src="http://f.cl.ly/items/0E2J2N0M1N1y0W15412H/replication.png" alt="Replication" /></div>
 
 
     <p>This is helpful when it comes to publishing your documents, which is nothing more than pushing a replication to the Substance.io server. Until your documents have not been published they will remain as local copies in your computer, however <em>going live</em> with a document is only one click away.</p>
 
-    <img src="http://f.cl.ly/items/1D2G3a021l04291m2J2N/republish.png" alt="Republish" />
+    <div class="centered"><img src="http://f.cl.ly/items/1D2G3a021l04291m2J2N/republish.png" alt="Republish" /></div>
 
 
     <p>In the same way you can keep on editing your work and regularly republish the latest version by publishing your changes.</p>
 
-    <h2>What&#8217;s next {#next}</h2>
+    <h2 id="next">What's next?</h2>
 
-    <p>If you are a loyal Substance.io user you will have noticed that many of the functionality that was already there is missing. This is because as mentioned before the platform needed a total rewrite in order to reach the potential that we knew it can have, so along with many lines of code, went some of the functionality. That is not to say that this functionalities will be missing in future versions, we are making sure that the core of the platform is stable and setting the foundations for what was already there, and many more!</p>
+    <p>If you are a loyal Substance.io user you will have noticed that many of the functionality that was already there is missing. This is because as mentioned before the platform needed a total rewrite in order to reach the potential that we know it can have, so along with many lines of code, went some of the functionality. That is not to say that this functionalities will be missing in future versions, we are making sure that the core of the platform is stable and setting the foundations for what was already there, and much more!</p>
 
-    <p>The future Substance will include ways of working with richer content types beyond plain text, such as tabular data, lists, links… Collaborating is also one of the motivations for the whole project and will definitely be one of its strengths, so you can expect this to be shipped in upcoming releases. You will be able to invite people to contribute to your documents, review, eco-edit etc.</p>
+    <p>The future Substance will include ways of working with richer content types beyond plain text, such as tabular data, lists, links… Collaboration is also one of the motivations for the whole project and will definitely be one of its strengths, so you can expect this to be shipped in upcoming release. You will be able to invite people to contribute to your documents, review, co-edit etc.</p>
 
     <p>Also one of the missing blocks that we consider to be key for the platform to be complete is the possibility to export in multiple formats. This is a very important ingredient and will also come in the updates soon.</p>
 
     <h1>Help us</h1>
 
-    <p>Now I hope this post has clarified and described the current situation and functionalities in place for you. We are very excited for this brand new launch, and we certainly hope you are too. After a two-year of experimental work, our next goal is to get the platform ready for production. For that reason we sat down and worked out a roadmap and launched a <a href="http://pledgie.com/campaigns/18902">campaign</a> to back development costs.</p>
+    <p>Now I hope this post has clarified and described the current situation and functionalities in place for you. We are very excited for this brand new launch, and we certainly hope you are too. After two years of experimental work, our next goal is to get the platform ready for production. For that reason we sat down and worked out a roadmap and launched a <a href="http://pledgie.com/campaigns/18902">campaign</a> to back development costs.</p>
 
-    <p>With your help we can work full time on the project and deliver a reliable finished version even faster – since the team is only work part-time on this at the moment – so please, if you like the ideas we propose and want to help make this happen, please <a href="http://pledgie.com/campaigns/18902">support us</a>!!!</p>
+    p.descr.centered
+      | <a href="http://www.pledgie.com/campaigns/18902"><img alt="Click here to lend your support to: Substance and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/18902.png?skin_name=chrome" border="0" /></a>
 
-  
+    <p>With your help we can work full time on the project and deliver a reliable finished version even faster – since the team is only work part-time on this at the moment – so please, if you like the ideas we propose and want to help make this happen, please <a href="http://pledgie.com/campaigns/18902">support us</a>!</p>
+
+    <p><i>by Victor Saiz</br>Published on February 1, 2013</i></p>
