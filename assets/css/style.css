@@ -34,9 +34,8 @@ a:hover {
 
 #header .title {
   text-align: center;
-  font-size: 25px;
+  font-size: 26px;
   margin: 20px 0;
-
 }
 
 #header .title a {
@@ -47,6 +46,22 @@ a:hover {
 
 #header .title a:hover {
   color: rgba(111, 106, 70, 1.0);
+}
+
+
+.section-info #header a.info {
+  color: rgba(111, 106, 70, 1.0);
+  /*font-weight: bold;*/
+}
+
+.section-blog #header a.blog {
+  color: rgba(111, 106, 70, 1.0);
+  /*font-weight: bold;*/
+}
+
+.section-explore #header a.explore {
+  color: rgba(111, 106, 70, 1.0);
+  /*font-weight: bold;*/
 }
 
 #header .menu {
@@ -61,7 +76,7 @@ a:hover {
   text-transform: uppercase;
   text-decoration: none;
   margin: 0 20px;
-  color: rgba(111, 106, 70, 0.7);
+  color: rgba(111, 106, 70, 0.5);
 }
 
 #header .menu a:hover {
