@@ -133,10 +133,6 @@ apis.configure = function (app) {
       var username = req.body.username;
       var data     = req.body.data;
 
-      console.log('authorized... now creating publication', req.headers);
-      console.log('BODY\n', req.body);
-
-      // TODO: Check if authorized, using token from the header
       publications.create(document, username, data, function() {
         res.json({"status": "ok"});
       });
@@ -265,12 +261,10 @@ apis.configure = function (app) {
         if (err) return res.json(500, { error: err });
 
         if (meta) {
-          console.log('with metainfo');
           store.updateMeta(id, meta, function(err) {
             res.json(doc);
           });
         } else {
-          console.log('without metainfo');
           res.json(doc);
         }
       });
