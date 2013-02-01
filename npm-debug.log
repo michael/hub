@@ -1,0 +1,29 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@1.1.65
+3 info using node@v0.8.14
+4 verbose read json /Users/vectorsize/Dropbox/www/substance/hub/package.json
+5 verbose run-script [ 'prestart', 'start', 'poststart' ]
+6 info prestart substance-hub@0.0.1
+7 info start substance-hub@0.0.1
+8 verbose unsafe-perm in lifecycle true
+9 silly exec sh "-c" "node index"
+10 silly sh,-c,node index,/Users/vectorsize/Dropbox/www/substance/hub spawning
+11 info substance-hub@0.0.1 Failed to exec start script
+12 error substance-hub@0.0.1 start: `node index`
+12 error `sh "-c" "node index"` failed with 1
+13 error Failed at the substance-hub@0.0.1 start script.
+13 error This is most likely a problem with the substance-hub package,
+13 error not with npm itself.
+13 error Tell the author that this fails on your system:
+13 error     node index
+13 error You can get their info via:
+13 error     npm owner ls substance-hub
+13 error There is likely additional logging output above.
+14 error System Darwin 11.4.2
+15 error command "node" "/usr/local/bin/npm" "start"
+16 error cwd /Users/vectorsize/Dropbox/www/substance/hub
+17 error node -v v0.8.14
+18 error npm -v 1.1.65
+19 error code ELIFECYCLE
+20 verbose exit [ 1, true ]
