@@ -145,8 +145,10 @@ DocumentRenderer.prototype.render = function() {
   _.each(this.nodes(), function(node) {
     if (node.type === "heading") {
       html += '<h2>'+renderAnnotatedContent(node)+'</h2>';
-    } else {
+    } else if (node.type === "text") {
       html += '<p>'+renderAnnotatedContent(node)+'</p>';
+    } else if (node.type === "image") {
+      html += '<img src="'+node.content+'"/>'
     }
   });
   return html;
@@ -266,6 +268,17 @@ routes.configure = function (app) {
           util: util
         });        
       });
+    });
+  });
+
+  // Expose JSON for Document
+  // -----------
+
+  app.get('/documents/json/:document', function(req, res) {
+    publications.findByDocument(req.params.document, function(err, publications) {
+      var doc = _.last(publications);
+      if (!doc) return res.send(404, "Document Not found");
+      res.json(doc);
     });
   });
 
