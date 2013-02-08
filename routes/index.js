@@ -139,7 +139,7 @@ DocumentRenderer.prototype.render = function() {
   html += '<img src="/images/separator.png">';
 
   if (properties.abstract && properties.abstract !== "Enter abstract") {
-    html += '<div class="abstract">'+properties.abstract+'</div>';  
+    html += '<div class="abstract">'+properties.abstract+'</div>';
   }
 
   _.each(this.nodes(), function(node) {
@@ -148,7 +148,7 @@ DocumentRenderer.prototype.render = function() {
     } else if (node.type === "text") {
       html += '<p>'+renderAnnotatedContent(node)+'</p>';
     } else if (node.type === "image") {
-      html += '<img src="'+node.content+'"/>'
+      html += '<img src="'+node.content+'"/>';
     }
   });
   return html;
@@ -165,6 +165,15 @@ var util = {
 
 
 routes.configure = function (app) {
+
+  // API v1
+  // ===========
+
+  app.namespace('/api/v1', function () {
+
+    require('./api').configure(app);
+
+  });
 
   // Views
   // ===========
@@ -188,7 +197,7 @@ routes.configure = function (app) {
     res.render('blog', {
       section: 'blog',
       util: util
-    }); 
+    });
   });
 
   // Temp permalink
@@ -198,14 +207,14 @@ routes.configure = function (app) {
     res.render('blog', {
       section: 'blog',
       util: util
-    }); 
+    });
   });
   
   app.get('/blog/2013/02/01/the-new-substance-is-here', function(req, res) {
     res.render('blog', {
       section: 'blog',
       util: util
-    }); 
+    });
   });
 
 
@@ -261,7 +270,7 @@ routes.configure = function (app) {
           content: JSON.parse(doc.data),
           creator: {
             username: doc.creator,
-            name: user ? user.name : doc.creator,
+            name: user ? user.name : doc.creator
           },
           created_at: doc.created_at
         });
@@ -273,7 +282,7 @@ routes.configure = function (app) {
           content: html,
           section: 'login',
           util: util
-        });        
+        });
       });
     });
   });
@@ -287,121 +296,6 @@ routes.configure = function (app) {
       if (!doc) return res.send(404, "Document Not found");
       res.json(doc);
     });
-  });
-
-  // Login Form
-  // -----------
-
-  app.get('/login', render('login', {
-    section: 'login'
-  }));
-
-
-  // Signup Form
-  // -----------
-
-  app.get('/signup', function (req, res) {
-    var view;
-    if (req.query.success !== 'true') {
-      view = 'signup';
-    } else {
-      view = 'signup-success';
-    }
-
-    res.render(view, {
-      section: 'signup'
-    });
-  });
-
-
-
-
-
-  // Logout action
-  // -----------
-
-  app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-  });
-
-
-  // Login Action
-  // -----------
-
-  app.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-
-      // TODO CSRF!!!!
-      var redirect;
-      var redirectKey = req.body.redirect;
-
-      if (err) {
-        return next(err);
-      } else if (!user) {
-        return res.redirect('/login?redirect=' + redirectKey);
-      }
-
-      req.login(user, function (err) {
-        if (err) {
-          next(err);
-        } else {
-          csrf.check(redirectKey, function (err, redirect) {
-            if (err) {
-              next(err);
-            } else {
-              res.redirect(redirect || '/');
-            }
-          });
-        }
-      });
-
-    }).apply(passport, arguments);
-
-  });
-
-
-  // Signup Action
-  // -----------
-
-  app.post('/signup', function (req, res, next) {
-    var email = req.body.email;
-    var username = req.body.username;
-    var password = req.body.password;
-    var name = req.body.name;
-
-    users.create(email, username, name, password, function (err, uuid) {
-      if (err) next(err);
-      else next();
-    });
-  }, redirect('/signup?success=true'));
-
-
-  // Settings Dialog
-  // -----------
-
-  app.get('/settings', logged(), redirect('/settings/profile'));
-
-  function setting (name) {
-    app.get('/settings/' + name, logged(), render('settings/' + name, {
-      section: 'settings',
-      page: name
-    }));
-  }
-
-  setting('profile');
-  setting('avatar');
-  setting('networks');
-  setting('documents');
-
-
-  // API v1
-  // ===========
-
-  app.namespace('/api/v1', function () {
-
-    require('./api').configure(app);
-
   });
 
 };
