@@ -284,6 +284,7 @@ routes.configure = function (app) {
   app.get('/documents/json/:document', function(req, res) {
     publications.findByDocument(req.params.document, function(err, publications) {
       var doc = _.last(publications);
+      doc.data = JSON.parse(doc.data);
       if (!doc) return res.send(404, "Document Not found");
       res.json(doc);
     });
