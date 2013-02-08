@@ -15,7 +15,7 @@ var users = require('./lib/publications');
 var errors = require('./lib/errors');
 
 var db = require('./lib/db');
-var routes = require('./routes');
+var routes = require('./lib/routes');
 
 
 module.exports = function create () {
