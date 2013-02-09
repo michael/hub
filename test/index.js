@@ -60,20 +60,20 @@ var Auth;
 
 describe("Authorization APIs", function () {
 
-  it("should throw without authentication", function (done) {
+  it("shouldn't work without authentication", function (done) {
     api(POST, "/authorizations")
       .expect(/authentication|application/i)
       .expect(401, done);
   });
 
-  it("should throw without application credentials", function (done) {
+  it("shouldn't work without application credentials", function (done) {
     api(POST, "/authorizations")
       .auth("admin", "unicornsarecute")
       .expect(/application/i)
       .expect(401, done);
   });
 
-  it("should throw without user credentials", function (done) {
+  it("shouldn't work without user credentials", function (done) {
     app.applications.findByName("Composer", function (err, application) {
       Composer = application;
       if (err) return done(err);
