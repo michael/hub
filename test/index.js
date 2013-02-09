@@ -124,6 +124,16 @@ describe("Authorization APIs", function () {
       });
   });
 
+  it("should return the a token if asked directly", function (done) {
+    api(GET, "/authorizations/"+Auth.uuid, Auth)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        res.body.should.eql(Auth);
+        done();
+      });
+  });
+
   it("shouldn't permit updates", function (done) {
     api(PUT, "/authorizations/"+Auth.uuid)
       .expect(501, done);
