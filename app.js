@@ -4,23 +4,37 @@ var express = require('express'),
     assets = require('connect-assets'),
     crypto = require('crypto'),
     path = require('path'),
-    passport = require('passport');
+    passport = require('passport'),
+    winston = require('winston');
 
 require('express-namespace');
 
 var setup = require('./lib/setup');
 var authentication = require('./lib/authentication');
-var users = require('./lib/users');
-var users = require('./lib/publications');
 var errors = require('./lib/errors');
 
 var db = require('./lib/db');
 var routes = require('./lib/routes');
 
 
-module.exports = function create () {
+module.exports = function create (options) {
+
+  if (!options) options = {};
 
   var app = express();
+
+  var logger = new winston.Logger(options.logger || {
+    transports: [
+      new winston.transports.Console()
+    ]
+  });
+
+  logger.extend(app);
+
+  app.authorizations = require('./lib/authorizations');
+  app.publications = require('./lib/publications');
+  app.applications = require('./lib/applications');
+  app.users = require('./lib/users');
 
   app.configure(function () {
 
@@ -61,7 +75,7 @@ module.exports = function create () {
 
   routes.configure(app);
 
-  setup();
+  setup(app);
 
   return app;
 };

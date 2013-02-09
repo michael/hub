@@ -24,15 +24,16 @@
     "passport-hash": "0.2.x",
     "passport-oauth2-client-password": "0.1.x",
     "pg": "0.8.x",
-    "supertest": "0.4.x",
     "underscore": "1.4.x",
     "when": "1.x",
     "moment": "1.7.2",
+    "winston": "0.6.x",
 
     "substance-store": "git://github.com/substance/store.git"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "supertest": "0.5.x"
   }
 }
