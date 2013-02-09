@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "test": "mocha"
   },
   "engines": {
     "node": "0.8.x",
