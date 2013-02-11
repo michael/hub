@@ -1,0 +1,14 @@
+extend layout
+
+block content
+  form.well.form-horizontal(method="POST")
+    fieldset
+      legend Login
+      .control-group
+        label.control-label(for="login") Login
+        .controls: input#login(type="text",name="username")
+      .control-group
+        label.control-label(for="passw") Password
+        .controls: input#passw(type="password",name="password")
+      .control-group: .controls
+        button.btn.btn-primary(type="submit") Login

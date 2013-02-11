@@ -1,0 +1,39 @@
+extends layout
+
+mixin dd-item(name, icon, title)
+  li: a(href="#",data-action=name)
+    if icon
+      i(class="icon-"+icon)
+      | &nbsp;
+    = title
+
+mixin dd-divider
+  li.divider
+
+block content
+  h1= title
+
+  block global-actions
+
+  table.table.table-bordered
+
+    thead: tr
+      th.actions: input(type="checkbox")
+      for prop in properties
+        th= prop
+      td
+
+    tbody
+      for model in models
+        tr
+          td.actions: input(type="checkbox")
+          for prop in properties
+            td= model[prop]
+          td.actions
+            block model-actions
+              .btn-group
+                a.btn.dropdown-toggle(data-toggle="dropdown",href="#")
+                  | Actions&nbsp;
+                  span.caret
+                ul.dropdown-menu
+                  block model-actions-list

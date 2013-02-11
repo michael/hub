@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+body {
+  background: #F0F1EB;
+}
+
+#head:after {
+  content: '';
+  display: block;
+  height: 4px;
+  background: yellow;
+}
+
+.navbar-inverse .nav .active > a,
+.navbar-inverse .nav .active > a:hover,
+.navbar-inverse .nav .active > a:focus {
+  color: yellow;
+}
+
+.actions {
+  text-align: center;
+  width: 1px;
+}
+
+.actions:last-child {
+  padding: 3px;
+}
+
+.actions input[type=checkbox] {
+  vertical-align: middle;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  top: -1px;
+}

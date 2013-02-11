@@ -1,0 +1,28 @@
+mixin menu-item(sec, href, content)
+  - var cl = sec === section ? 'active' : '';
+  li(class=cl): a(href="/admin"+href)= content
+
+!!!5
+html
+  head
+    title Substance Hub &ndash; Admin
+    style body { padding-top: 60px; }
+    link(href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/css/bootstrap.min.css",rel="stylesheet")
+    link(href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css",rel="stylesheet")
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    != css('admin')
+  body
+    header#head.navbar.navbar-inverse.navbar-fixed-top: .navbar-inner: .container
+      a.brand(href="/admin") Substance
+      if user
+        nav: ul.nav
+          mixin menu-item('dashboard','', 'Dashboard')
+          mixin menu-item('users','/users', 'Users')
+          mixin menu-item('apps','/apps', 'Applications')
+          mixin menu-item('publications','/publications', 'Publications')
+
+    .container
+      block content
+
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js")
