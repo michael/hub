@@ -31,3 +31,7 @@ start redis (by using the redis.conf in the repository, it uses port 6380 for th
 make sure you have a postgres instance running and finally ...
 
     POSTGRES_CONN="postgres://user:pwd@localhost:5432/substance" npm start
+
+## Run the tests
+
+    npm test
