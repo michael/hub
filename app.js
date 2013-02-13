@@ -31,6 +31,8 @@ module.exports = function create (options) {
 
   logger.extend(app);
 
+  app.authentication = authentication;
+
   app.authorizations = require('./lib/authorizations');
   app.publications = require('./lib/publications');
   app.applications = require('./lib/applications');
