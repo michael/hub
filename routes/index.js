@@ -108,11 +108,21 @@ DocumentRenderer.prototype.render = function() {
       var res = "";
 
       _.each(annotations, function(a) {
-        if (type === "starts") {
-          res += '<span class="'+a.type+'">';
+
+        if (a.type === "link") {
+          if (type === "starts") {
+            res += '<a href="'+a.url+'" class="'+a.type+'">';
+          } else {
+            res += '</a>';
+          }
         } else {
-          res += '</span>';
+          if (type === "starts") {
+            res += '<span class="'+a.type+'">';
+          } else {
+            res += '</span>';
+          }          
         }
+
       });
       return res;
     }
