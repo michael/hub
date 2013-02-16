@@ -62,14 +62,14 @@ describe("Authorization APIs", function () {
 
   it("shouldn't work without authentication", function (done) {
     api(POST, "/authorizations")
-      .expect(/authentication|application/i)
+      .expect(/authentication|client/i)
       .expect(401, done);
   });
 
   it("shouldn't work without application credentials", function (done) {
     api(POST, "/authorizations")
       .auth("admin", "unicornsarecute")
-      .expect(/application/i)
+      .expect(/client/i)
       .expect(401, done);
   });
 
