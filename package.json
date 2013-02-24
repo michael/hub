@@ -31,8 +31,6 @@
     "winston": "0.6.x",
 
     "substance-store": "git://github.com/substance/store.git",
-    "ejs": "0.8.x",
-    "ejs-locals": "~1.0.2",
     "highlight": "~0.2.3"
   },
   "devDependencies": {

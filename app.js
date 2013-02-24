@@ -1,7 +1,6 @@
 
 var express = require('express'),
     resource = require('express-resource'),
-    engine = require('ejs-locals'),
     assets = require('connect-assets'),
     crypto = require('crypto'),
     path = require('path'),
@@ -16,7 +15,6 @@ var errors = require('./lib/errors');
 
 var db = require('./lib/db');
 var routes = require('./lib/routes');
-
 
 module.exports = function create (options) {
 
@@ -42,9 +40,7 @@ module.exports = function create (options) {
   app.configure(function () {
 
     app.set('port', process.env.PORT || 3000);
-    app.set('view engine', 'ejs');
-    // use ejs-locals for all ejs templates:
-    app.engine('ejs', engine);
+    app.set('view engine', 'jade');
     
     app.set('views', __dirname + '/views');
 
