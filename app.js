@@ -1,6 +1,7 @@
 
 var express = require('express'),
     resource = require('express-resource'),
+    engine = require('ejs-locals'),
     assets = require('connect-assets'),
     crypto = require('crypto'),
     path = require('path'),
@@ -41,7 +42,10 @@ module.exports = function create (options) {
   app.configure(function () {
 
     app.set('port', process.env.PORT || 3000);
-    app.set('view engine', 'jade');
+    app.set('view engine', 'ejs');
+    // use ejs-locals for all ejs templates:
+    app.engine('ejs', engine);
+    
     app.set('views', __dirname + '/views');
 
     app.use(express.cookieParser());
