@@ -34,4 +34,4 @@ make sure you have a postgres instance running and finally ...
 
 ## Run the tests
 
-    npm test
+    POSTGRES_CONN="postgres://user:pwd@localhost:5432/substance" npm test
