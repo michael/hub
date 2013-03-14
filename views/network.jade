@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  div.network-details
+    div.cover
+      img(src=network.cover)
+    div.name= network.name
+
+  div.documents
+    if documents && documents.length > 0
+      for doc in documents
+        a.document(href="/documents/"+doc.id)
+          div.title= doc.title
+          div.author= doc.creator
+          div.created-at= util.timeago(doc.created_at)
+    else
+      .no-documents No published documents yet

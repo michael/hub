@@ -440,3 +440,35 @@ p.descr {
   margin-bottom: 60px;
   margin-top: 40px;
 }
+
+
+/* Networks
+-------------------------------------------------------------------------------*/
+
+.networks {
+  overflow: auto;
+  margin-top: 40px;
+  margin-bottom: 500px;
+}
+
+.networks .network {
+  opacity: 0.9;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.networks .network .name {
+  text-align: center;
+}
+
+.networks .network:hover {
+  opacity: 1;
+}
+
+.network-details {
+  background: #ccc;
+}
+
+

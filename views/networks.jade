@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div.networks
+    if networks && networks.length > 0
+      for network in networks
+        a.network(href="/networks/"+network.id)
+          div.cover
+            img(src=network.cover)
+          div.name= network.name
+    else
+      .no-documents No networks found.
