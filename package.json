@@ -29,8 +29,6 @@
     "when": "1.x",
     "moment": "1.7.2",
     "winston": "0.6.x",
-
-    "substance-store": "git://github.com/substance/store.git",
     "highlight": "~0.2.3"
   },
   "devDependencies": {
