@@ -3,3 +3,4 @@ start.sh
 npm-debug.log
 
 /dump.rdb
+/tests
