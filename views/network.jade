@@ -3,8 +3,11 @@ extends layout
 block content
   div.network-details
     div.cover
-      img(src=network.cover)
-    div.name= network.name
+      img(src="http://farm3.staticflickr.com/2385/2217512391_7d61c96de5_b.jpg")
+    div.meta
+      div.meta-inner
+        div.name= network.name
+        div.descr= network.descr
 
   div.documents
     if documents && documents.length > 0
