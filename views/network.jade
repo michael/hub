@@ -16,7 +16,7 @@ block content
           div.cover
             img(src=doc.cover)
           div.title= doc.title
-          div.author= doc.creator
+          div.author= doc.creator.name
           div.created-at= util.timeago(doc.created_at)
     else
       .no-documents No published documents yet
