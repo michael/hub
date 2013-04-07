@@ -4,11 +4,13 @@ block content
   div.user-profile= username
     's documents
   div.documents
-    if documents.length > 0
+    if documents && documents.length > 0
       for doc in documents
-        a.document(href="/documents/"+doc.id)
+        a.document(href="/public/"+doc.id)
+          div.cover
+            img(src=doc.cover)
           div.title= doc.title
-          div.author= doc.creator
+          div.author= doc.creator.name
           div.created-at= util.timeago(doc.created_at)
     else
       .no-documents No published documents yet
