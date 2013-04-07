@@ -6,17 +6,22 @@ html
 
     title Substance - Towards open digital publishing
   body(class="section-#{section}")
-    #header
+    - var color = '#2F2B27';
+    - if (locals.network) color = network.color;
+    #header(style="background: "+color)
       .header-inner
         .title: a(href="/") Substance
-        .menu
+        - if (locals.network)
+          .network
+            a(href="/"+network.id)= network.name
+        - if (locals.document)
+          .document= document.title
     #content
       block content
     #footer
       .footer-inner
         div.outro Towards open digital publishing
         div.links
-
           a(href="/info") About
           span &nbsp;&middot;&nbsp;
           a(href="http://interior.substance.io",target="_blank") Interior

@@ -2,8 +2,8 @@ extends layout
 
 block content
   div.network-details
-    div.cover
-      img(src="http://farm3.staticflickr.com/2385/2217512391_7d61c96de5_b.jpg")
+    //- div.cover
+    //-  img(src=network.cover)
     div.meta
       div.meta-inner
         div.name= network.name
@@ -12,7 +12,9 @@ block content
   div.documents
     if documents && documents.length > 0
       for doc in documents
-        a.document(href="/documents/"+doc.id)
+        a.document(href="/"+network.id+"/"+doc.id)
+          div.cover
+            img(src=doc.cover)
           div.title= doc.title
           div.author= doc.creator
           div.created-at= util.timeago(doc.created_at)

@@ -1,13 +1,11 @@
 extends layout
 
 block content
-  div.networks-header
   div.networks
     if networks && networks.length > 0
       for network in networks
-        a.network(href="/networks/"+network.id)
-          div.cover
-            img(src=network.cover)
+        a.network(href="/"+network.id,style="background: "+network.color+";")
           div.name= network.name
+          div.descr= network.descr
     else
       .no-documents No networks found.
