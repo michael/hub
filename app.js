@@ -54,12 +54,14 @@ module.exports = function create (options) {
 
     app.use(routes.commonHelper);
     app.use(gravatars);
-    app.use(app.router);
+    app.use(express['static'](path.join(__dirname, 'assets')));
+    
 
     app.use(assets());
+    app.use(app.router);
     app.use(errors.errorHandler());
 
-    app.use(express['static'](path.join(__dirname, 'assets')));
+    
 
   });
 
