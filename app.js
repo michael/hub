@@ -56,12 +56,9 @@ module.exports = function create (options) {
     app.use(gravatars);
     app.use(express['static'](path.join(__dirname, 'assets')));
     
-
     app.use(assets());
     app.use(app.router);
     app.use(errors.errorHandler());
-
-    
 
   });
 
