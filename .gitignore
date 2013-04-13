@@ -1,5 +1,4 @@
 node_modules
-start.sh
 npm-debug.log
 
 /dump.rdb
