@@ -1,0 +1,17 @@
+-- Adapt this file to your need and execute with
+--     psql -p 5432 -h localhost -f postgres.init
+--
+-- Put this into your ~/.profile:
+-- export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance"
+-- export SUBSTANCE_DEVELOPMENT_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_development"
+-- export SUBSTANCE_TEST_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_test"
+--
+--
+
+create user substance with password '<PASSWORD-HERE>';
+create database substance with owner = substance;
+create database substance_development with owner = substance;
+create database substance_test with owner = substance;
+grant all privileges on database substance to substance;
+grant all privileges on database substance_test to substance;
+grant all privileges on database substance_development to substance;
