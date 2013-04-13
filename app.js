@@ -22,6 +22,8 @@ module.exports = function create (options) {
 
   var app = express();
 
+  app.env = process.env.NODE_ENV || "development";
+
   var logger = new winston.Logger(options.logger || {
     transports: [
       new winston.transports.Console()
