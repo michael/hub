@@ -1,0 +1,72 @@
+{
+  "Users": {
+    "username": "text PRIMARY KEY",
+    "email": "text NOT NULL UNIQUE",
+    "name": "text",
+    "hash": "text",
+    "data": "text",
+    "created_at": "timestamp NOT NULL"
+  },
+
+  "Documents": {
+    "id": "text UNIQUE PRIMARY KEY",
+    "name": "text",
+    "creator": "text",
+    "latest_version": "int NOT NULL"
+  },
+
+  "Applications": {
+    "uuid": "text UNIQUE PRIMARY KEY",
+    "name": "text NOT NULL UNIQUE",
+    "internal": "boolean NOT NULL DEFAULT FALSE",
+    "secret": "text NOT NULL",
+    "created_at": "timestamp NOT NULL"
+  },
+
+  "Authorizations": {
+    "uuid": "text UNIQUE PRIMARY KEY",
+    "active": "boolean NOT NULL DEFAULT TRUE",
+    "user_uuid": "text NOT NULL",
+    "application_uuid": "text NOT NULL",
+    "token": "text NOT NULL",
+    "scopes": "text",
+    "created_at": "timestamp NOT NULL"
+  },
+
+  "Networks": {
+    "id": "text UNIQUE PRIMARY KEY",
+    "name": "text NOT NULL UNIQUE",
+    "cover": "text NOT NULL",
+    "color": "text NOT NULL",
+    "descr": "text",
+    "active": "boolean NOT NULL DEFAULT TRUE",
+    "moderated": "boolean NOT NULL DEFAULT FALSE",
+    "creator": "text NOT NULL",
+    "created_at": "timestamp NOT NULL"
+  },
+
+  "Versions": {
+    "document": "text NOT NULL",
+    "version": "int NOT NULL",
+    "creator": "text NOT NULL",
+    "data": "text NOT NULL",
+    "created_at": "timestamp NOT NULL",
+    "PRIMARY KEY": "(document, version)"
+  },
+
+  "Publications": {
+    "network": "text NOT NULL",
+    "document": "text NOT NULL",
+    "version": "int NOT NULL",
+    "creator": "text NOT NULL",
+    "state": "text NOT NULL",
+    "active": "boolean NOT NULL DEFAULT TRUE",
+    "PRIMARY KEY": "(network, document)"
+  },
+
+  "Collaborators": {
+    "document": "text NOT NULL",
+    "collaborator": "text NOT NULL",
+    "PRIMARY KEY": "(document, collaborator)"
+  }
+}

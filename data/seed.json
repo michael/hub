@@ -1,0 +1,95 @@
+{
+  "applications": [
+    {
+      "name": "Composer",
+      "uuid": "hello-kitty",
+      "secret": "abcd",
+      "internal": true
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@substance.io",
+      "name": "Substance Admin",
+      "password": "abcd"
+    },
+    {
+      "username": "michael",
+      "email": "michael@dont.com",
+      "name": "Michael Aufreiter",
+      "password": "abcd"
+    },
+    {
+      "username": "oliver",
+      "email": "oliver@dont.com",
+      "name": "Oliver Buchtala",
+      "password": "abcd"
+    }
+  ],
+  "networks": [
+    {
+      "id": "public",
+      "name": "Public",
+      "descr": "Substance Public Stream, unfiltered.",
+      "cover": "http://farm8.staticflickr.com/7197/6922744517_7108a40fa4_b.jpg",
+      "creator": "michael",
+      "color": "#474B21",
+      "moderated": false
+    },
+    {
+      "id": "technology",
+      "name": "Technology",
+      "descr": "Essays about all kinds of technology.",
+      "cover": "http://farm3.staticflickr.com/2174/2240432052_b5ff5b800c_b.jpg",
+      "creator": "oliver",
+      "color": "#407956",
+      "moderated": true
+    },
+    {
+      "id": "film",
+      "name": "Film",
+      "descr": "Everything film-related.",
+      "cover": "http://farm5.staticflickr.com/4134/4872994545_9cf0bd0a7e_o.jpg",
+      "creator": "michael",
+      "color": "#462B4E",
+      "moderated": true
+    },
+    {
+      "id": "fiction",
+      "name": "Fiction",
+      "descr": "Yes, fiction.",
+      "cover": "http://farm5.staticflickr.com/4098/4748942112_4c00e67bd2_b.jpg",
+      "creator": "michael",
+      "color": "#2E465C",
+      "moderated": true
+    },
+    {
+      "id": "open-source",
+      "name": "Open Source",
+      "descr": "The Open Source channel on Substance.",
+      "cover": "http://farm6.staticflickr.com/5200/7442443392_45591a631b_b.jpg",
+      "creator": "oliver",
+      "color": "#B75726",
+      "moderated": true
+    },
+    {
+      "id": "design",
+      "name": "Design",
+      "descr": "Design and UX.",
+      "cover": "http://farm6.staticflickr.com/5448/7418827168_df8b0f0ec0_b.jpg",
+      "creator": "michael",
+      "color": "#9F2929",
+      "moderated": true
+    },
+    {
+      "id": "substance",
+      "name": "Substance",
+      "descr": "Substance is open digital publishing.",
+      "cover": "http://farm7.staticflickr.com/6090/6090064610_60d9801357_b.jpg",
+      "creator": "michael",
+      "color": "#59422D",
+      "moderated": true
+    }
+  ]
+}
