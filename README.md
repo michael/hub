@@ -60,7 +60,7 @@ Put this into your `~/.profile` and adapt to your needs:
 Start redis (by using the redis.conf in the repository, it uses port 6380 for the docstore)
 
 ```bash
-    localhost:hub michael $ redis-server redis.conf
+localhost:hub michael $ redis-server redis.conf
 ```
 
 ## Run the tests
