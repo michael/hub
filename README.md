@@ -1,36 +1,60 @@
 Substance Hub
 ===
 
-
 ## Prerequisites
 
-- Install Node.js 0.8.x
-- Install Redis (so you have redis-server available)
+- Node.js 0.8.x
+- Redis 2.6.x
+- Postgres 9.2.x
 - PCRE (`sudo port install pcre`)
 - Automake (really?) (`sudo port install automake`)
 - Autoconf (`sudo port install autoconf`)
 
-## Setup
 
-Obviously...
+## Setup Dev Environment
 
-    git clone https://github.com/michael/hub.git
+Clone the Substance Mothership
 
-then...
+```bash
+$ git clone https://github.com/michael/substance.git
+```
 
-    cd hub
+Execute the Substance update script. It sets up the whole environment
 
-and...
+```bash
+$ cd substance
+./update.sh
+```
 
-    npm install # native extension substance-store is built
 
-start redis (by using the redis.conf in the repository, it uses port 6380 for the docstore)
+## Setup Database Environment
 
+Initialize your Postgres Database by executing:
+
+```bash
+cd hub
+psql -p 5432 -h localhost -f postgres.init
+```
+
+
+Put this into your `~/.profile`:
+
+```bash
+-- export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance"
+-- export SUBSTANCE_DEVELOPMENT_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_development"
+-- export SUBSTANCE_TEST_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_test"
+```
+
+### Setup Redis
+
+Start redis (by using the redis.conf in the repository, it uses port 6380 for the docstore)
+
+```bash
     localhost:hub michael $ redis-server redis.conf
+```
 
 make sure you have a postgres instance running and finally ...
 
-    POSTGRES_CONN="postgres://user:pwd@localhost:5432/substance" npm start
 
 ## Run the tests
 
