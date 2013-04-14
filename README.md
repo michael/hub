@@ -71,6 +71,6 @@ Start redis (by using the redis.conf in the repository, it uses port 6380 for th
    ./start.sh -t
    ```
 
-2. Start the Composer and press `ctrl + alt + t`
+2. Start the Composer (`composer/build/app/osx/Substance.app`) and press `ctrl + alt + t`
 
-   Now you can play around with the test suite.
+   Now playing around with the test suite should be self-explanatory.
