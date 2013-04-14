@@ -23,7 +23,7 @@ Execute the Substance update script. It sets up the whole environment
 
 ```bash
 $ cd substance
-$ ./update.sh
+$ ./update.sh -c # performs a clean build
 ```
 
 Navigate to the Hub Repository
@@ -37,7 +37,7 @@ $ cd hub
 Initialize your Postgres Database by executing:
 
 ```bash
-$ psql -p 5432 -h localhost -f postgres.init
+$ psql postgres -p 5432 -h localhost -f postgres.init
 ```
 
 Put this into your `~/.profile` and adapt to your needs:
