@@ -1,6 +1,8 @@
 Substance Hub
 ===
 
+We're using OSX for development, but this setup should work on Linux too. At least for the hub.
+
 ## Prerequisites
 
 - Node.js 0.8.x
