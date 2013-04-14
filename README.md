@@ -52,7 +52,7 @@ Put this into your `~/.profile` and adapt to your needs:
 ## Start the hub
 
 ```bash
-./start.sh -d --seed
+./start.sh -d -s # Start in development env and apply default seed
 ```
 
 ### Setup Redis
