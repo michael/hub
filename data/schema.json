@@ -68,5 +68,12 @@
     "document": "text NOT NULL",
     "collaborator": "text NOT NULL",
     "PRIMARY KEY": "(document, collaborator)"
+  },
+
+  "Blobs": {
+    "id": "text NOT NULL",
+    "document": "text NOT NULL",
+    "data": "text NOT NULL",
+    "PRIMARY KEY": "(id, document)"
   }
 }
