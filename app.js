@@ -1,4 +1,3 @@
-
 var express = require('express'),
     resource = require('express-resource'),
     assets = require('connect-assets'),
@@ -16,7 +15,7 @@ var errors = require('./lib/errors');
 var db = require('./lib/db');
 var routes = require('./lib/routes');
 
-module.exports = function create (options) {
+module.exports = function create(options) {
 
   if (!options) options = {};
 
