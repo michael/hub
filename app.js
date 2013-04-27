@@ -33,10 +33,10 @@ module.exports = function create(options) {
 
   app.authentication = authentication;
 
-  app.authorizations = require('./lib/authorizations');
-  app.publications = require('./lib/publications');
-  app.applications = require('./lib/applications');
-  app.users = require('./lib/users');
+  app.authorizations = require('./lib/model/authorizations');
+  app.publications = require('./lib/model/publications');
+  app.applications = require('./lib/model/applications');
+  app.users = require('./lib/model/users');
 
   app.configure(function () {
 
