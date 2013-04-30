@@ -46,28 +46,31 @@
   },
 
   "Versions": {
+    "id": "text UNIQUE PRIMARY KEY",
     "document": "text NOT NULL",
     "version": "int NOT NULL",
     "creator": "text NOT NULL",
     "data": "text NOT NULL",
     "created_at": "timestamp NOT NULL",
-    "PRIMARY KEY": "(document, version)"
+    "UNIQUE": "(document, version)"
   },
 
   "Publications": {
+    "id": "text UNIQUE PRIMARY KEY",
     "network": "text NOT NULL",
     "document": "text NOT NULL",
     "version": "int NOT NULL",
     "creator": "text NOT NULL",
     "state": "text NOT NULL",
     "active": "boolean NOT NULL DEFAULT TRUE",
-    "PRIMARY KEY": "(network, document)"
+    "UNIQUE": "(network, document)"
   },
 
   "Collaborators": {
+    "id": "text UNIQUE PRIMARY KEY",
     "document": "text NOT NULL",
     "collaborator": "text NOT NULL",
-    "PRIMARY KEY": "(document, collaborator)"
+    "UNIQUE": "(document, collaborator)"
   },
 
   "Blobs": {
