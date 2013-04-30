@@ -74,9 +74,9 @@
   },
 
   "Blobs": {
-    "id": "text NOT NULL",
+    "id": "text UNIQUE PRIMARY KEY",
     "document": "text NOT NULL",
     "data": "text NOT NULL",
-    "PRIMARY KEY": "(id, document)"
+    "UNIQUE": "(id, document)"
   }
 }
