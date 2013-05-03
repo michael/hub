@@ -8,11 +8,16 @@ var express = require('express'),
 
 require('express-namespace');
 
+// Proudly pollutes the global object
+require('./lib/api');
+
 var setup = require('./lib/setup');
 var authentication = require('./lib/authentication');
 var errors = require('./lib/errors');
 
+
 var db = require('./lib/db');
+
 var routes = require('./lib/routes');
 
 module.exports = function create(options) {
@@ -42,7 +47,7 @@ module.exports = function create(options) {
 
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'jade');
-    
+
     app.set('views', __dirname + '/views');
 
     app.use(express.cookieParser());
@@ -56,7 +61,7 @@ module.exports = function create(options) {
     app.use(routes.commonHelper);
     app.use(gravatars);
     app.use(express['static'](path.join(__dirname, 'assets')));
-    
+
     app.use(assets());
     app.use(app.router);
     app.use(errors.errorHandler());
