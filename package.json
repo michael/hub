@@ -21,7 +21,7 @@
     "passport": "0.1.x",
     "passport-local": "0.1.x",
     "passport-http": "0.1.x",
-    "substance-store": "git@github.com:substance/store.git",
+    "substance-store": "git://github.com/substance/store.git",
     "passport-hash": "0.2.x",
     "passport-oauth2-client-password": "0.1.x",
     "pg": "0.8.x",
