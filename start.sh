@@ -51,13 +51,24 @@ readopts "$@"
 
 if [ $ENV == "production" ]; then
   export POSTGRES_CONN=$SUBSTANCE_PRODUCTION_POSTGRES_CONN
+  REDIS_CONF=$SUBSTANCE_PRODUCTION_REDIS_CONF
+  export SUBSTANCE_REDIS_PORT=6380
+  export PORT=4000
 elif [ $ENV == "development" ]; then
   export POSTGRES_CONN=$SUBSTANCE_DEVELOPMENT_POSTGRES_CONN
+  REDIS_CONF=$SUBSTANCE_DEVELOPMENT_REDIS_CONF
+  export SUBSTANCE_REDIS_PORT=6381
+  export PORT=3000
 elif [ $ENV == "test" ]; then
   export POSTGRES_CONN=$SUBSTANCE_TEST_POSTGRES_CONN
+  REDIS_CONF=$SUBSTANCE_TEST_REDIS_CONF
+  export SUBSTANCE_REDIS_PORT=6382
+  export PORT=3001
 else
   echo "Unsupported environment." && exit -1
 fi
+
+PID_FILE="/tmp/substance_""$ENV""_redis.pid"
 
 export NODE_ENV=$ENV
 
@@ -69,8 +80,8 @@ fi
 
 ###############################################################################
 # Start redis server (keeping PID to kill afterwards)
-echo "Starting redis-server..."
-redis-server ./redis.conf
+echo "Starting redis-server with configuraiton $REDIS_CONF"
+redis-server $REDIS_CONF
 
 ###############################################################################
 # Start node
@@ -83,6 +94,6 @@ fi
 ###############################################################################
 # kill redis server
 
-PID=$(cat /tmp/redis.pid)
+PID=$(cat $PID_FILE)
 echo "Closing redis-server: $PID"
 kill -9 $PID
