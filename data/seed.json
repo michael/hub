@@ -7,6 +7,26 @@
       "internal": true
     }
   ],
+  "authorizations": [
+    {
+      "user_uuid": "michael",
+      "token": "michael",
+      "scopes": "all",
+      "application_uuid": "hello-kitty"
+    },
+    {
+      "user_uuid": "oliver",
+      "token": "oliver",
+      "scopes": "all",
+      "application_uuid": "hello-kitty"
+    },
+    {
+      "user_uuid": "admin",
+      "token": "admin",
+      "scopes": "all",
+      "application_uuid": "hello-kitty"
+    }
+  ],
   "users": [
     {
       "username": "admin",
