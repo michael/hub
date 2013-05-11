@@ -5,6 +5,7 @@ We're using OSX for development, but this setup should work on Linux too. At lea
 
 ## Prerequisites
 
+
 - Node.js 0.8.x
 - Redis 2.6.x
 - Postgres 9.2.x
@@ -45,9 +46,13 @@ $ psql postgres -p 5432 -h localhost -f postgres.init
 Put this into your `~/.profile` and adapt to your needs:
 
 ```bash
--- export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance"
--- export SUBSTANCE_DEVELOPMENT_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_development"
--- export SUBSTANCE_TEST_POSTGRES_CONN="postgres://substance:<PASSWORD>@localhost:5432/substance_test"
+export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance"
+export SUBSTANCE_DEVELOPMENT_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance_development"
+export SUBSTANCE_TEST_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance_test"
+
+export SUBSTANCE_PRODUCTION_REDIS_CONF="$HOME/substance_production_redis.conf"
+export SUBSTANCE_DEVELOPMENT_REDIS_CONF="$HOME/substance_development_redis.conf"
+export SUBSTANCE_TEST_REDIS_CONF="$HOME/substance_test_redis.conf"
 ```
 
 
