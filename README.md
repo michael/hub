@@ -55,6 +55,12 @@ export SUBSTANCE_DEVELOPMENT_REDIS_CONF="$HOME/substance_development_redis.conf"
 export SUBSTANCE_TEST_REDIS_CONF="$HOME/substance_test_redis.conf"
 ```
 
+Please use the following ports for your Redis configurations:
+
+- Port 6390 - Production
+- Port 6391 - Development
+- Port 6392 - Test
+
 
 ## Start the hub
 
