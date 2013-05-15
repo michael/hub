@@ -43,6 +43,7 @@ module.exports = function create(options) {
   app.applications = require('./lib/model/applications');
   app.users = require('./lib/model/users');
 
+
   app.configure(function () {
 
     app.set('port', process.env.PORT || 3000);
@@ -60,6 +61,7 @@ module.exports = function create(options) {
 
     app.use(routes.commonHelper);
     app.use(gravatars);
+
     app.use(express['static'](path.join(__dirname, 'assets')));
 
     app.use(assets());
