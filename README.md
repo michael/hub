@@ -43,6 +43,12 @@ Initialize your Postgres Database by executing:
 $ psql postgres -p 5432 -h localhost -f postgres.init
 ```
 
+On Ubuntu, after installing postgres the command is
+
+```bash
+$ sudo -u postgres psql postgres -f postgres.init
+```
+
 Put this into your `~/.profile` and adapt to your needs:
 
 ```bash
