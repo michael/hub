@@ -2,7 +2,7 @@
 --     psql postgres -p 5432 -h localhost -f postgres.init
 --
 -- Put this into your ~/.profile:
--- export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:substance>@localhost:5432/substance"
+-- export SUBSTANCE_PRODUCTION_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance"
 -- export SUBSTANCE_DEVELOPMENT_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance_development"
 -- export SUBSTANCE_TEST_POSTGRES_CONN="postgres://substance:substance@localhost:5432/substance_test"
 --
