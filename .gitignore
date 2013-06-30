@@ -7,3 +7,6 @@ npm-debug.log
 /assets/composer
 /document
 /store
+
+/substance_*.aof
+/substance_*.rdb
