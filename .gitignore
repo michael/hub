@@ -6,4 +6,5 @@ npm-debug.log
 /util
 /assets/composer
 /document
+/node_modules
 /store
