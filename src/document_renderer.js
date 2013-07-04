@@ -1,7 +1,7 @@
 
 var _ = require('underscore'),
     hl = require("highlight").Highlight;
-    Document = require('../document/document');
+    Document = require('substance-document');
 
 module.exports = DocumentRenderer;
 

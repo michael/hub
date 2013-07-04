@@ -1,10 +1,13 @@
 var _ = require('underscore');
 var fs = require('fs');
 var db = require('./db');
-var errors = require('./errors');
+var errors = require('substance-util/errors');
 
-var util = require('../util/util');
-var seeds = require('../util/seeds');
+var util = require('substance-util');
+
+// TODO: move somewhere else
+var seeds = require('../../../tests/seeds');
+
 var HubStore = require('./model/hubstore');
 
 // API for seeding the Database
@@ -96,6 +99,7 @@ var Seed = function(seed) {
 };
 
 Seed.schema = function() {
+  // TODO: bitter
   return JSON.parse(fs.readFileSync('./data/schema.json','utf8'));
 }
 
@@ -110,7 +114,8 @@ Seed.read = function(env, name, cb) {
   };
 
   if (env === "production") {
-    seed.hub = JSON.parse(fs.readFileSync('./data/seed.json','utf8'));
+    // TODO: bitter
+    seed.hub = JSON.parse(fs.readFileSync('./lib/hub/data/seed.json','utf8'));
     cb(null, seed);
   } else {
     // read the config and pull in dependencies

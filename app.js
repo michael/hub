@@ -9,16 +9,16 @@ var express = require('express'),
 require('express-namespace');
 
 // Proudly pollutes the global object
-require('./lib/api');
+require('./src/api');
 
-var setup = require('./lib/setup');
-var authentication = require('./lib/authentication');
-var errors = require('./lib/errors');
+var setup = require('./src/setup');
+var authentication = require('./src/authentication');
+var errors = require('./src/errors');
 
 
-var db = require('./lib/db');
+var db = require('./src/db');
 
-var routes = require('./lib/routes');
+var routes = require('./src/routes');
 
 module.exports = function create(options) {
 
@@ -38,10 +38,10 @@ module.exports = function create(options) {
 
   app.authentication = authentication;
 
-  app.authorizations = require('./lib/model/authorizations');
-  app.publications = require('./lib/model/publications');
-  app.applications = require('./lib/model/applications');
-  app.users = require('./lib/model/users');
+  app.authorizations = require('./src/model/authorizations');
+  app.publications = require('./src/model/publications');
+  app.applications = require('./src/model/applications');
+  app.users = require('./src/model/users');
 
 
   app.configure(function () {

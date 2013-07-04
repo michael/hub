@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt');
 var errors = require('../errors');
 var documents = require('./documents');
 var blobs = require('./blobs');
-var util = require ('../../util/util');
+var util = require ('substance-util');
 
 var BY_DOCUMENT_SQL = 'SELECT * FROM Versions WHERE document = $1 ORDER BY created_at DESC',
     INSERT_VERSION_SQL = 'INSERT INTO Versions (id, document, version, creator, data, created_at) VALUES ($1, $2, $3, $4, $5, NOW());',

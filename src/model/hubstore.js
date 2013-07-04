@@ -1,10 +1,11 @@
 var _ = require('underscore');
-var errors = require('../errors');
-var util = require('../../util/util')
+var errors = require('substance-util/errors');
+var util = require('substance-util/util')
 var collaborators = require('./collaborators');
 var store = require('substance-store');
-var Store = require('../../store/src/store').Store;
-var AsyncStore = require('../../store/src/async_store');
+
+var Store = store.Store;
+var AsyncStore = store.AsyncStore;
 var documents = require('./documents');
 
 var REDIS_PORT = parseInt(process.env['SUBSTANCE_REDIS_PORT'], 10);

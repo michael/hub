@@ -1,7 +1,7 @@
 var _ = require('underscore');
+var util = require('substance-util');
 var db = require('../db');
 var errors = require('../errors');
-var util = require('../../util/util');
 
 var BLOB_BY_ID = 'SELECT * FROM Blobs WHERE document = $1 AND id = $2',
     BLOB_OF_DOCUMENTS = 'SELECT * FROM Blobs WHERE document = $1'
