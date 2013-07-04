@@ -62,7 +62,7 @@ module.exports = function create(options) {
     app.use(routes.commonHelper);
     app.use(gravatars);
 
-    app.use(express['static'](path.join(__dirname, 'assets')));
+    app.use(express['static'](path.join(__dirname, '/../../')));
 
     app.use(assets());
     app.use(app.router);
