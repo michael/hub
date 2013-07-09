@@ -1,23 +1,23 @@
 var _ = require('underscore');
 var errors = require('substance-util/errors');
-var util = require('substance-util/util')
+var util = require('substance-util/util');
 var collaborators = require('./collaborators');
 var store = require('substance-store');
 
 var Store = store.Store;
-var AsyncStore = store.AsyncStore;
+//var AsyncStore = store.AsyncStore;
 var documents = require('./documents');
 
 var REDIS_PORT = parseInt(process.env['SUBSTANCE_REDIS_PORT'], 10);
 if (!REDIS_PORT) throw ("NOOOOOOOO ..... substance redis port given... ehem. §%!");
 
 function getStore(username) {
-  var scope = username || "";
-  return new store.RedisStore({scope: scope, port: REDIS_PORT});
+  //var scope = username || "";
+  //return new store.RedisStore({scope: scope, port: REDIS_PORT});
 }
 
 var HubStore = function(username) {
-    AsyncStore.call(this, getStore(username));
+    //AsyncStore.call(this, getStore(username));
     this.username = username;
 };
 
@@ -46,7 +46,7 @@ HubStore.__prototype__ = function() {
                 cb(null);
               });
               else cb(null);
-            })
+            });
           },
           finally: function(err) { cb(err, result); }
         })(null, cb);
@@ -78,8 +78,6 @@ HubStore.__prototype__ = function() {
 
       var self = this;
       var docs = this.store.list();
-      var collaborations;
-      var result = {};
 
       self.getCollaborations(function(err, collaborations) {
         if (err) return cb(err);
@@ -170,7 +168,7 @@ HubStore.__prototype__ = function() {
               // console.log("Hubstore.applyCommand: delegating deletion to another store", doc.creator, docId);
 
               // user is not creator, delegate deletion to another store
-              global.api.execute("hubstore", "delete", {document: docId}, {username: self.username}, function(err) {
+              global.api.execute("hubstore", "delete", {document: docId}, {username: self.username}, function() {
                 // Do not fail in this case: the user deleted the document from his store.
                 // If he is not permitted to delete the original document
                 // it is ok that this operation does not have an effect.
@@ -190,7 +188,7 @@ HubStore.__prototype__ = function() {
       } catch(err) {
         return cb(err);
       }
-    }
+    };
 
     // TODO: should this be static in general?
     this.seed = function(seeds, cb) {
@@ -199,7 +197,7 @@ HubStore.__prototype__ = function() {
 
 };
 
-HubStore.__prototype__.prototype = AsyncStore.prototype;
+//HubStore.__prototype__.prototype = AsyncStore.prototype;
 HubStore.prototype = new HubStore.__prototype__();
 
 // Static methods
@@ -210,26 +208,26 @@ HubStore.prototype = new HubStore.__prototype__();
 HubStore.seed = function(seeds, cb) {
   // console.log('HubStore.seed', seeds);
 
-  var store = getStore();
-  store.impl.clear();
+  // var store = getStore();
+  // //store.impl.clear();
 
-  if (seeds) {
-    _.each(seeds, function(seed, creator) {
-      getStore(creator).seed(seed);
+  // if (seeds) {
+  //   _.each(seeds, function(seed, creator) {
+  //     getStore(creator).seed(seed);
 
-      _.each(seed.documents, function(doc, id) {
-        //console.log('HubStore.seed... each...', doc, id);
-        var document = {
-          id: id,
-          creator: creator,
-        }
-        documents.create(document, function(err) {
-          if (err) console.log("Hubstore.seed: Error", err);
-          else console.log("Hubstore.seed: created document", creator, id);
-        });
-      });
-    });
-  }
+  //     _.each(seed.documents, function(doc, id) {
+  //       //console.log('HubStore.seed... each...', doc, id);
+  //       var document = {
+  //         id: id,
+  //         creator: creator,
+  //       };
+  //       documents.create(document, function(err) {
+  //         if (err) console.log("Hubstore.seed: Error", err);
+  //         else console.log("Hubstore.seed: created document", creator, id);
+  //       });
+  //     });
+  //   });
+  // }
   cb(null);
 };
 
@@ -361,7 +359,7 @@ var api = {
       } else new HubStore(args.username).applyCommand(args.track, args.command, cb);
     }
   }
-}
+};
 global.api.register("hubstore", api);
 
 module.exports = HubStore;
