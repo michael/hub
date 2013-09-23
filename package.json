@@ -28,7 +28,8 @@
     "when": "1.x",
     "moment": "1.7.2",
     "winston": "0.6.x",
-    "highlight": "~0.2.3"
+    "highlight": "~0.2.3",
+    "substance-util": "git+https://github.com/substance/util.git#0.2.x"
   },
   "devDependencies": {
     "nodemon": "*",

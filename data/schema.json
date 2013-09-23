@@ -8,13 +8,6 @@
     "created_at": "timestamp NOT NULL"
   },
 
-  "Documents": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "name": "text",
-    "creator": "text",
-    "latest_version": "int NOT NULL"
-  },
-
   "Applications": {
     "uuid": "text UNIQUE PRIMARY KEY",
     "name": "text NOT NULL UNIQUE",
@@ -31,52 +24,5 @@
     "token": "text NOT NULL",
     "scopes": "text",
     "created_at": "timestamp NOT NULL"
-  },
-
-  "Networks": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "name": "text NOT NULL UNIQUE",
-    "cover": "text NOT NULL",
-    "color": "text NOT NULL",
-    "descr": "text",
-    "active": "boolean NOT NULL DEFAULT TRUE",
-    "moderated": "boolean NOT NULL DEFAULT FALSE",
-    "creator": "text NOT NULL",
-    "created_at": "timestamp NOT NULL"
-  },
-
-  "Versions": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "document": "text NOT NULL",
-    "version": "int NOT NULL",
-    "creator": "text NOT NULL",
-    "data": "text NOT NULL",
-    "created_at": "timestamp NOT NULL",
-    "UNIQUE": "(document, version)"
-  },
-
-  "Publications": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "network": "text NOT NULL",
-    "document": "text NOT NULL",
-    "version": "int NOT NULL",
-    "creator": "text NOT NULL",
-    "state": "text NOT NULL",
-    "active": "boolean NOT NULL DEFAULT TRUE",
-    "UNIQUE": "(network, document)"
-  },
-
-  "Collaborators": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "document": "text NOT NULL",
-    "collaborator": "text NOT NULL",
-    "UNIQUE": "(document, collaborator)"
-  },
-
-  "Blobs": {
-    "id": "text UNIQUE PRIMARY KEY",
-    "document": "text NOT NULL",
-    "data": "text NOT NULL",
-    "UNIQUE": "(id, document)"
   }
 }

@@ -39,7 +39,6 @@ module.exports = function create(options) {
   app.authentication = authentication;
 
   app.authorizations = require('./lib/model/authorizations');
-  app.publications = require('./lib/model/publications');
   app.applications = require('./lib/model/applications');
   app.users = require('./lib/model/users');
 
